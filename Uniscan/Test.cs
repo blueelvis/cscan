@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uniscan.Components
+namespace CScan.Components
 {
     class Test : Component
     {
-        public bool Run(ref Uniscan.Report report)
+        public bool Run(ref CScan.Report report)
         {
             List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("token", "TST"),

@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Uniscan.Components;
+using CScan.Components;
 
-namespace Uniscan
+namespace CScan
 {
     class Scanner
     {
@@ -45,7 +45,7 @@ namespace Uniscan
         {
             foreach (string component in components)
             {
-                Type t = Type.GetType("Uniscan.Components." + component);
+                Type t = Type.GetType("CScan.Components." + component);
 
                 Component initializedComponent = (Component) Activator.CreateInstance(t);
 

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Uniscan")]
+[assembly: AssemblyTitle("CScan")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Certly, Inc.")]
-[assembly: AssemblyProduct("Uniscan")]
+[assembly: AssemblyProduct("CScan")]
 [assembly: AssemblyCopyright("Copyright © Certly, Inc 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

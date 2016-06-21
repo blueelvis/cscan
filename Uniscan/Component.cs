@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uniscan.Components
+namespace CScan.Components
 {
         interface Component
         {
-            bool Run(ref Uniscan.Report report);
+            bool Run(ref CScan.Report report);
         }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Uniscan
+namespace CScan
 {
     class Report
     {
@@ -20,7 +20,7 @@ namespace Uniscan
         {
             string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
-            string path = homeDirectory + "\\Desktop\\Uniscan.txt";
+            string path = homeDirectory + "\\Desktop\\" + Main.name + ".txt";
 
             System.IO.File.WriteAllText(path, ToString());
 

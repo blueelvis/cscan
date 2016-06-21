@@ -8,10 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Uniscan
+namespace CScan
 {
     public partial class Main : Form
     {
+        public const string name = "CScan";
+
+        public const string version = "0.0.0-dev";
+
         public Main()
         {
             InitializeComponent();

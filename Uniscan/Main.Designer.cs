@@ -1,4 +1,4 @@
-﻿namespace Uniscan
+﻿namespace CScan
 {
     partial class Main
     {
@@ -74,7 +74,7 @@
             this.MinimizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Uniscan";
+            this.Text = "CScan";
             this.ResumeLayout(false);
             this.PerformLayout();
 
