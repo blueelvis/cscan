@@ -11,9 +11,12 @@ namespace CScan
     {
         protected List<List<KeyValuePair<string, string>>> lines = new List<List<KeyValuePair<string, string>>>();
 
-        public void Add(List<KeyValuePair<string, string>> line)
+        public void Add(List<List<KeyValuePair<string, string>>> newLines)
         {
-            lines.Add(line);
+            foreach (List<KeyValuePair<string, string>> line in newLines)
+            {
+                lines.Add(line);
+            }
         }
 
         public string WriteToFile()

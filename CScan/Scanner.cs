@@ -12,6 +12,7 @@ namespace CScan
     {
         protected string[] components = {
             "Test",
+            "RegistryRun",
         };
 
         protected List<Component> initializedComponents = new List<Component>();
@@ -29,7 +30,7 @@ namespace CScan
             {
                 Console.WriteLine("Running...");
 
-                component.Run(ref report);
+                component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
 
                 Console.WriteLine("Ran!");
             }

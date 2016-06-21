@@ -8,13 +8,13 @@ namespace CScan.Components
 {
     class Test : Component
     {
-        public bool Run(ref CScan.Report report)
+        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
         {
-            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>() {
+            list.Add(new List<KeyValuePair<string, string>> () {
                 new KeyValuePair<string, string>("token", "TST"),
                 new KeyValuePair<string, string>("data", "abcDef"),
                 new KeyValuePair<string, string>("data", "ghiJkl"),
-            };
+            });
 
             report.Add(list);
 
