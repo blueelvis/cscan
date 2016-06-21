@@ -10,10 +10,11 @@ namespace Uniscan.Components
     {
         public bool Run(ref Uniscan.Report report)
         {
-            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
-
-            list.Add(new KeyValuePair<string, string>("token", "TST"));
-            list.Add(new KeyValuePair<string, string>("data", "abcDef"));
+            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>() {
+                new KeyValuePair<string, string>("token", "TST"),
+                new KeyValuePair<string, string>("data", "abcDef"),
+                new KeyValuePair<string, string>("data", "ghiJkl"),
+            };
 
             report.Add(list);
 

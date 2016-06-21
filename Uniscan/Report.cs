@@ -16,6 +16,17 @@ namespace Uniscan
             lines.Add(line);
         }
 
+        public string WriteToFile()
+        {
+            string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+            string path = homeDirectory + "\\Uniscan.txt";
+
+            System.IO.File.WriteAllText(path, ToString());
+
+            return path;
+        }
+
         public override string ToString()
         {
             string output = "";

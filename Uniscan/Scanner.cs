@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,9 @@ namespace Uniscan
                 Console.WriteLine("Ran!");
             }
 
-            Console.WriteLine(report.ToString());
+            string path = report.WriteToFile();
+
+            Process.Start("notepad.exe", path);
 
             status.Text = "Success!";
         }
