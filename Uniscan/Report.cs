@@ -20,7 +20,7 @@ namespace Uniscan
         {
             string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
-            string path = homeDirectory + "\\Uniscan.txt";
+            string path = homeDirectory + "\\Desktop\\Uniscan.txt";
 
             System.IO.File.WriteAllText(path, ToString());
 
