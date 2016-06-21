@@ -8,13 +8,15 @@ namespace Uniscan.Components
 {
     class Test : Component
     {
-        public bool ShouldRun()
+        public bool Run(ref Uniscan.Report report)
         {
-            return true;
-        }
+            List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
 
-        public bool Run(ref System.Windows.Forms.TextBox status)
-        {
+            list.Add(new KeyValuePair<string, string>("token", "TST"));
+            list.Add(new KeyValuePair<string, string>("data", "abcDef"));
+
+            report.Add(list);
+
             return true;
         }
     }

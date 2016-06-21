@@ -22,17 +22,18 @@ namespace Uniscan
 
         public void Scan(ref System.Windows.Forms.TextBox status)
         {
+            Report report = new Report();
+
             foreach (Component component in initializedComponents)
             {
-                if (component.ShouldRun())
-                {
-                    Console.WriteLine("Running...");
+                Console.WriteLine("Running...");
 
-                    component.Run(ref status);
+                component.Run(ref report);
 
-                    Console.WriteLine("Ran!");
-                }
+                Console.WriteLine("Ran!");
             }
+
+            Console.WriteLine(report.ToString());
 
             status.Text = "Success!";
         }

@@ -8,8 +8,6 @@ namespace Uniscan.Components
 {
         interface Component
         {
-            bool ShouldRun();
-
-            bool Run(ref System.Windows.Forms.TextBox status);
+            bool Run(ref Uniscan.Report report);
         }
 }
