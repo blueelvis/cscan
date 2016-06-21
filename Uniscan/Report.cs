@@ -12,7 +12,7 @@ namespace Uniscan
 
         public void Add(string line)
         {
-
+            lines.Add(line);
         }
 
         public override string ToString()
