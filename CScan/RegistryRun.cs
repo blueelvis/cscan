@@ -22,14 +22,18 @@ namespace CScan.Components
         {
             foreach (string registryKey in ConsolidateKeys())
             {
+                string[] splitKeys = registryKey.Split('\\');
+
+                string lastKey = splitKeys[splitKeys.Length - 1];
+
                 using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey))
                 {
-                    list = IterateOverValues(list, key);
+                    list = IterateOverValues(list, key, lastKey);
                 }
 
                 using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryKey))
                 {
-                    list = IterateOverValues(list, key);
+                    list = IterateOverValues(list, key, lastKey);
                 }
             }
 
@@ -43,7 +47,7 @@ namespace CScan.Components
             return RunKeys.Concat(RunOnceKeys).ToArray();
         }
 
-        protected List<List<KeyValuePair<string, string>>> IterateOverValues(List<List<KeyValuePair<string, string>>> list, Microsoft.Win32.RegistryKey key)
+        protected List<List<KeyValuePair<string, string>>> IterateOverValues(List<List<KeyValuePair<string, string>>> list, Microsoft.Win32.RegistryKey key, string type)
         {
             foreach (string valueName in key.GetValueNames())
             {
@@ -53,7 +57,7 @@ namespace CScan.Components
 
                     list.Add(
                         new List<KeyValuePair<string, string>> () {
-                            new KeyValuePair<string, string>("token", "Run"),
+                            new KeyValuePair<string, string>("token", type),
                             new KeyValuePair<string, string>("key", valueName + " =>"),
                             new KeyValuePair<string, string>("value", "[b]" + value + "[/b]"),
                         }
