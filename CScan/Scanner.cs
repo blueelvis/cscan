@@ -11,6 +11,7 @@ namespace CScan
     class Scanner
     {
         protected string[] components = {
+            "Header",
             "RegistryRun",
         };
 

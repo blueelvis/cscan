@@ -17,6 +17,9 @@ namespace CScan
             {
                 lines.Add(line);
             }
+
+            // Add an extra empty line between sections.
+            lines.Add(new List<KeyValuePair<string, string>>());
         }
 
         public string WriteToFile()
