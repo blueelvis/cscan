@@ -18,6 +18,19 @@ namespace CScan.Components
                 new KeyValuePair<string, string>("data", "Running as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name + " on Windows " + Environment.OSVersion.Version),
             });
 
+
+            dynamic totalMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
+
+            totalMemory = (int)(totalMemory / 1000000000);
+
+            dynamic freeMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory;
+
+            freeMemory = (int)(freeMemory / 1000000000);
+
+            list.Add(new List<KeyValuePair<string, string>>() {
+                new KeyValuePair<string, string>("data", totalMemory + "GB RAM installed; " + freeMemory + "GB RAM available"),
+            });
+
             report.Add(list);
 
             return true;
