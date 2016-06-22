@@ -8,15 +8,9 @@ namespace CScan.Components
 {
     class RegistryRun : Component
     {
-        protected string[] RunKeys =
-        {
-            "Software\\Microsoft\\Windows\\CurrentVersion\\Run",
-        };
+        protected string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
-        protected string[] RunOnceKeys =
-        {
-            "Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce",
-        };
+        protected string RunOnceKey = @"Software\Microsoft\Windows\CurrentVersion\RunOnce";
 
         public bool Run(ref Report report, List<List<KeyValuePair<string, string>>> list)
         {
@@ -28,12 +22,12 @@ namespace CScan.Components
 
                 using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey))
                 {
-                    list = IterateOverValues(list, key, lastKey);
+                    list = IterateOverValues(list, key, lastKey, "HKLM");
                 }
 
                 using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryKey))
                 {
-                    list = IterateOverValues(list, key, lastKey);
+                    list = IterateOverValues(list, key, lastKey, "HKCU");
                 }
             }
 
@@ -44,10 +38,13 @@ namespace CScan.Components
 
         protected string[] ConsolidateKeys()
         {
-            return RunKeys.Concat(RunOnceKeys).ToArray();
+            return new string[] {
+                RunKey,
+                RunOnceKey,
+            };
         }
 
-        protected List<List<KeyValuePair<string, string>>> IterateOverValues(List<List<KeyValuePair<string, string>>> list, Microsoft.Win32.RegistryKey key, string type)
+        protected List<List<KeyValuePair<string, string>>> IterateOverValues(List<List<KeyValuePair<string, string>>> list, Microsoft.Win32.RegistryKey key, string type, string root)
         {
             foreach (string valueName in key.GetValueNames())
             {
@@ -58,7 +55,7 @@ namespace CScan.Components
                     list.Add(
                         new List<KeyValuePair<string, string>> () {
                             new KeyValuePair<string, string>("token", type),
-                            new KeyValuePair<string, string>("key", valueName + " =>"),
+                            new KeyValuePair<string, string>("key", root + @"\..\" + valueName + " =>"),
                             new KeyValuePair<string, string>("value", "[b]" + value + "[/b]"),
                         }
                     );

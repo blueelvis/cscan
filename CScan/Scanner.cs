@@ -11,7 +11,6 @@ namespace CScan
     class Scanner
     {
         protected string[] components = {
-            "Test",
             "RegistryRun",
         };
 
