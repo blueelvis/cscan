@@ -12,6 +12,7 @@ namespace CScan
     {
         protected string[] components = {
             "Header",
+            "Drivers",
             "RegistryRun",
         };
 
