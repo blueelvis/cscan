@@ -76,6 +76,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Processes.cs" />
     <Compile Include="Drivers.cs" />
     <Compile Include="Header.cs" />
     <Compile Include="Report.cs" />
