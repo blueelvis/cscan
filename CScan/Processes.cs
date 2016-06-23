@@ -27,16 +27,12 @@ namespace CScan.Components
                 try
                 {
                     path = process.MainModule.FileName;
-                } catch (System.ComponentModel.Win32Exception e)
+                } catch (System.ComponentModel.Win32Exception)
                 {
-                    e.GetType();
-
                     path = process.ProcessName;
-                } catch (System.InvalidOperationException e)
+                } catch (System.InvalidOperationException)
                 {
-                    e.GetType();
-
-                    path = process.ProcessName;
+                    continue;
                 }
         
                 list.Add(new List<KeyValuePair<string, string>>() {
