@@ -45,11 +45,11 @@ namespace CScan
             {
                 foreach (KeyValuePair<string, string> list in line)
                 {
-                    if (list.Key != "token")
+                    if (list.Key != "token" && list.Value != null)
                     {
                         output = output + list.Value + " ";
                     }
-                    else
+                    else if (list.Value != null)
                     {
                         output = output + "[" + list.Value + "] ";
                     }

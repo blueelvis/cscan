@@ -30,11 +30,9 @@ namespace CScan
 
             foreach (Component component in initializedComponents)
             {
-                Console.WriteLine("Running...");
+                status.Text = "Running " + component.GetType().Name + "...";
 
                 component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
-
-                Console.WriteLine("Ran!");
             }
 
             string path = report.WriteToFile();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -17,10 +18,20 @@ namespace CScan.Components
             {
                 if (entry.GetPropertyValue("PathName") != null)
                 {
+                    string path = entry.GetPropertyValue("PathName").ToString();
+
+                    bool exists = true;
+
+                    if (!File.Exists(path))
+                    {
+                        exists = false;
+                    }
+
                     list.Add(new List<KeyValuePair<string, string>>() {
                         new KeyValuePair<string, string>("token", "Drv"),
-                        new KeyValuePair<string, string>("path", entry.GetPropertyValue("PathName").ToString()),
+                        new KeyValuePair<string, string>("path", path),
                         new KeyValuePair<string, string>("description", "(" + entry.GetPropertyValue("Description").ToString() + ")"),
+                        new KeyValuePair<string, string>("signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : null),
                     });
                 }
             }
