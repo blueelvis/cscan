@@ -30,5 +30,10 @@ namespace CScanDecrypter
 
             MessageBox.Show("Your key has been copied to the clipboard.", "Successfully Generated Key", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void decryptLog_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

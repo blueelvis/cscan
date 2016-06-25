@@ -63,6 +63,7 @@
             this.decryptLog.TabIndex = 2;
             this.decryptLog.Text = "Decrypt Log";
             this.decryptLog.UseVisualStyleBackColor = true;
+            this.decryptLog.Click += new System.EventHandler(this.decryptLog_Click);
             // 
             // Form1
             // 
