@@ -92,22 +92,24 @@ namespace CScan
 
             ICryptoTransform transform = aes.CreateEncryptor();
 
-            MemoryStream memoryStream = new MemoryStream();
-            CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
 
-            byte[] data = ASCIIEncoding.ASCII.GetBytes(blob);
+                byte[] data = ASCIIEncoding.ASCII.GetBytes(blob);
 
-            cryptoStream.Write(data, 0, data.Length);
-            cryptoStream.Close();
+                cryptoStream.Write(data, 0, data.Length);
+                cryptoStream.Close();
 
-            byte[] encryptedData = memoryStream.ToArray();
+                byte[] encryptedData = memoryStream.ToArray();
 
-            blob = Convert.ToBase64String(encryptedData);
-            blob = AddEncryptionHeaders(blob);
+                blob = Convert.ToBase64String(encryptedData);
 
-            memoryStream.Close();
+                self.Dispose();
+                aes.Dispose();
 
-            return blob;
+                return AddEncryptionHeaders(blob);
+            }
         }
 
         protected string AddEncryptionHeaders(string output)

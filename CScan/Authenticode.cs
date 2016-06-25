@@ -1,31 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CScan
 {
     class Authenticode
     {
-        public static bool IsSigned(string fileName)
+        private static string tempPath = Path.Combine(Path.GetTempPath(), "signtool.exe");
+
+        public static bool IsSigned(string fileName, bool strict = false)
         {
-            X509Certificate cert = null;
-
-            try
+            if (!File.Exists(tempPath))
             {
-                cert = X509Certificate.CreateFromSignedFile(fileName);
-            }
-            catch (CryptographicException)
-            {
-                return false;
+                File.WriteAllBytes(tempPath, CScan.Resources.signtool);
             }
 
-            X509Certificate2 v2Cert = new X509Certificate2(cert);
+            fileName = "\"" + Regex.Replace(fileName, @"(\\+)$", @"$1$1") + "\"";
 
-            return v2Cert.Verify();
+            Process process = Process.Start(tempPath, "verify /pa " + fileName);
+            process.WaitForExit();
+
+            return process.ExitCode == 0;
         }
     }
 }

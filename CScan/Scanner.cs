@@ -17,6 +17,7 @@ namespace CScan
             "RegistryRun",
             "Services",
             "Drivers",
+            "Signatures",
         };
 
         protected List<Component> initializedComponents = new List<Component>();
