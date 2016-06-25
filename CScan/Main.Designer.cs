@@ -31,6 +31,7 @@
             this.Scan = new System.Windows.Forms.Button();
             this.Fix = new System.Windows.Forms.Button();
             this.statusText = new System.Windows.Forms.TextBox();
+            this.encryptionKey = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Scan
@@ -61,11 +62,21 @@
             this.statusText.Size = new System.Drawing.Size(281, 20);
             this.statusText.TabIndex = 2;
             // 
+            // encryptionKey
+            // 
+            this.encryptionKey.Location = new System.Drawing.Point(210, 220);
+            this.encryptionKey.Name = "encryptionKey";
+            this.encryptionKey.Size = new System.Drawing.Size(150, 20);
+            this.encryptionKey.TabIndex = 3;
+            this.encryptionKey.Text = "Optional Encryption Key";
+            this.encryptionKey.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 261);
+            this.Controls.Add(this.encryptionKey);
             this.Controls.Add(this.statusText);
             this.Controls.Add(this.Fix);
             this.Controls.Add(this.Scan);
@@ -85,6 +96,7 @@
         private System.Windows.Forms.Button Scan;
         private System.Windows.Forms.Button Fix;
         private System.Windows.Forms.TextBox statusText;
+        private System.Windows.Forms.TextBox encryptionKey;
     }
 }
 

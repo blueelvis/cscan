@@ -24,7 +24,7 @@ namespace CScan
             InitializeComponents();
         }
 
-        public void Scan(ref System.Windows.Forms.TextBox status)
+        public void Scan(ref System.Windows.Forms.TextBox status, string encryptionKey = null)
         {
             Report report = new Report();
 
@@ -35,7 +35,7 @@ namespace CScan
                 component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
             }
 
-            string path = report.WriteToFile();
+            string path = report.WriteToFile(encryptionKey);
 
             Process.Start("notepad.exe", path);
 

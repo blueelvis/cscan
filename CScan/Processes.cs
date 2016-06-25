@@ -35,23 +35,11 @@ namespace CScan.Components
                 {
                     continue;
                 }
-
-                bool signed = false;
-                bool exists = true;
-
-                if (File.Exists(path))
-                {
-                    signed = Authenticode.IsSigned(path);
-                } else
-                {
-                    exists = false;
-                }
         
                 list.Add(new List<KeyValuePair<string, string>>() {
                     new KeyValuePair<string, string>("token", "Prc"),
                     new KeyValuePair<string, string>("pid", process.Id.ToString()),
                     new KeyValuePair<string, string>("path", path),
-                    new KeyValuePair<string, string>("signed", exists ? !signed ? "[b](unsigned)[/b]" : null : null),
                 });
             }
 

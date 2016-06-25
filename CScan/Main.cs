@@ -25,7 +25,7 @@ namespace CScan
         {
             Scanner scanner = new Scanner();
 
-            scanner.Scan(ref statusText);
+            scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text);
         }
     }
 }

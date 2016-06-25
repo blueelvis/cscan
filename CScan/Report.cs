@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -26,18 +27,18 @@ namespace CScan
             lines.Add(new List<KeyValuePair<string, string>>());
         }
 
-        public string WriteToFile()
+        public string WriteToFile(string externalKey = null)
         {
             string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
             string path = homeDirectory + "\\Desktop\\" + Main.name + ".txt";
 
-            System.IO.File.WriteAllText(path, ToString());
+            System.IO.File.WriteAllText(path, ToString(externalKey));
 
             return path;
         }
 
-        public string ToString(bool shouldEncrypt = false, string externalKey = null)
+        public string ToString(string externalKey = null)
         {
             string output = "";
 
@@ -58,7 +59,7 @@ namespace CScan
                 output = output + Environment.NewLine;
             }
 
-            if (shouldEncrypt)
+            if (externalKey != null)
             {
                 output = Encrypt(output, externalKey);
             }
@@ -85,9 +86,28 @@ namespace CScan
 
             byte[] sharedSecret = self.DeriveKeyMaterial(externalKeyObject);
 
-            Console.WriteLine(sharedSecret.ToString());
+            AesManaged aes = new AesManaged();
+            aes.Key = sharedSecret;
+            aes.GenerateIV();
 
-            return AddEncryptionHeaders(blob);
+            ICryptoTransform transform = aes.CreateEncryptor();
+
+            MemoryStream memoryStream = new MemoryStream();
+            CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+
+            byte[] data = ASCIIEncoding.ASCII.GetBytes(blob);
+
+            cryptoStream.Write(data, 0, data.Length);
+            cryptoStream.Close();
+
+            byte[] encryptedData = memoryStream.ToArray();
+
+            blob = Convert.ToBase64String(encryptedData);
+            blob = AddEncryptionHeaders(blob);
+
+            memoryStream.Close();
+
+            return blob;
         }
 
         protected string AddEncryptionHeaders(string output)
@@ -95,7 +115,7 @@ namespace CScan
             output = "-----BEGIN ENCRYPTED SCAN LOG-----" + Environment.NewLine 
                 + "Version: 1" + Environment.NewLine
                 + "Public-Key: " + publicKey + Environment.NewLine
-                + output;
+                + Environment.NewLine + output;
 
             output = output + Environment.NewLine + "-----END ENCRYPTED SCAN LOG-----";
 
