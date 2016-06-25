@@ -13,8 +13,9 @@ namespace CScan
         protected string[] components = {
             "Header",
             "Processes",
-            "Drivers",
             "RegistryRun",
+            "Services",
+            "Drivers",
         };
 
         protected List<Component> initializedComponents = new List<Component>();
