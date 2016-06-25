@@ -24,7 +24,15 @@ namespace CScan
 
             fileName = "\"" + Regex.Replace(fileName, @"(\\+)$", @"$1$1") + "\"";
 
-            Process process = Process.Start(tempPath, "verify /pa " + fileName);
+            ProcessStartInfo psi = new ProcessStartInfo(tempPath, "verify /pa " + fileName)
+            {
+                CreateNoWindow = true,
+                WindowStyle = ProcessWindowStyle.Hidden,
+                UseShellExecute = false,
+                RedirectStandardOutput = true                                               
+            };
+
+            Process process = Process.Start(psi);
             process.WaitForExit();
 
             return process.ExitCode == 0;
