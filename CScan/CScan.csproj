@@ -83,6 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Disks.cs" />
     <Compile Include="Signatures.cs" />
     <Compile Include="IEProxy.cs" />
     <Compile Include="Services.cs" />

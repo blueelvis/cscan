@@ -17,6 +17,7 @@ namespace CScan
             "RegistryRun",
             "Services",
             "Drivers",
+            "Disks",
             "Signatures",
         };
 

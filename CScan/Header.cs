@@ -18,10 +18,12 @@ namespace CScan.Components
             CultureInfo ci = CultureInfo.InstalledUICulture;
 
             list.Add(new List<KeyValuePair<string, string>>() {
-                new KeyValuePair<string, string>("raw", "Running from " + System.Reflection.Assembly.GetExecutingAssembly().Location + " as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name),
-                new KeyValuePair<string, string>("raw", "Windows Version " + Environment.OSVersion.Version + " Language " + ci.EnglishName),
+                new KeyValuePair<string, string>("raw", "Running from " + System.Reflection.Assembly.GetExecutingAssembly().Location.Substring(0, 3) + " as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name),
             });
 
+            list.Add(new List<KeyValuePair<string, string>>() {
+                new KeyValuePair<string, string>("raw", "Windows Version " + Environment.OSVersion.Version + " Language " + ci.EnglishName),
+            });
 
             dynamic totalMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
 
