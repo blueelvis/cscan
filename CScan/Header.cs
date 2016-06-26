@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,11 @@ namespace CScan.Components
                 new KeyValuePair<string, string>("raw", Main.name + " Version " + Main.version),
             });
 
+            CultureInfo ci = CultureInfo.InstalledUICulture;
+
             list.Add(new List<KeyValuePair<string, string>>() {
-                new KeyValuePair<string, string>("raw", "Running as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name + " on Windows " + Environment.OSVersion.Version),
+                new KeyValuePair<string, string>("raw", "Running from " + System.Reflection.Assembly.GetExecutingAssembly().Location + " as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name),
+                new KeyValuePair<string, string>("raw", "Windows Version " + Environment.OSVersion.Version + " Language " + ci.EnglishName),
             });
 
 
