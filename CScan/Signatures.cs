@@ -16,6 +16,8 @@ namespace CScan.Components
             @"C:\Windows\System32\userinit.exe",
             @"C:\Windows\System32\svchost.exe",
             @"C:\Windows\System32\wininit.exe",
+            @"C:\Windows\System32\Drivers\volsnap.sys",
+            System.Reflection.Assembly.GetExecutingAssembly().Location,
         };
 
         public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
