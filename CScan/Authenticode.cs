@@ -35,8 +35,6 @@ namespace CScan
             Process process = Process.Start(psi);
             process.WaitForExit();
 
-            Console.WriteLine(process.ExitCode);
-
             return process.ExitCode == 0;
         }
     }

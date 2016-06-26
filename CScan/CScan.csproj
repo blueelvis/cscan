@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Authenticode.cs" />
     <Compile Include="Hosts.cs" />
+    <Compile Include="Shell.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
