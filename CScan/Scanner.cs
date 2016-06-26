@@ -15,6 +15,7 @@ namespace CScan
             "IEProxy",
             "Processes",
             "RegistryRun",
+            "Hosts",
             "Services",
             "Drivers",
             "Disks",
