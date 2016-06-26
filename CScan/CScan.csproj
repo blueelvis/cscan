@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticode.cs" />
+    <Compile Include="Integrity.cs" />
     <Compile Include="Hosts.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Resources.Designer.cs">
