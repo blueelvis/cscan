@@ -12,7 +12,7 @@ namespace CScan.Components
     {
         public string[] files =
         {
-            @"C:\Windows\System32\explorer.exe",
+            @"C:\Windows\explorer.exe",
         };
 
         public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
