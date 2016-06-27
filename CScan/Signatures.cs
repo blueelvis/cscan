@@ -18,6 +18,7 @@ namespace CScan.Components
             @"C:\Windows\System32\wininit.exe",
             @"C:\Windows\System32\Drivers\volsnap.sys",
             @"C:\Windows\System32\User32.dll",
+            @"C:\Windows\System32\dllhost.exe",
             System.Reflection.Assembly.GetExecutingAssembly().Location,
         };
 

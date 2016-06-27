@@ -27,7 +27,7 @@ namespace CScan.Components
                     list.Add(
                         new List<KeyValuePair<string, string>>() {
                             new KeyValuePair<string, string>("token", "Shl"),
-                            new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon\Shell =>"),
+                            new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon [Shell] =>"),
                             new KeyValuePair<string, string>("shell", shell),
                         }
                     );
@@ -42,9 +42,9 @@ namespace CScan.Components
                 {
                     list.Add(
                         new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("token", "Shl"),
-                        new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon\Shell =>"),
-                        new KeyValuePair<string, string>("shell", shell),
+                            new KeyValuePair<string, string>("token", "Shl"),
+                            new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon [Shell] =>"),
+                            new KeyValuePair<string, string>("shell", shell),
                         }
                     );
                 }
