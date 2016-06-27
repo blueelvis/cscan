@@ -21,6 +21,7 @@ namespace CScan.Components
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey))
             {
                 string shell = (string)key.GetValue("Shell");
+                string userinit = (string)key.GetValue("Userinit");
 
                 if (shell != null)
                 {
@@ -28,7 +29,18 @@ namespace CScan.Components
                         new List<KeyValuePair<string, string>>() {
                             new KeyValuePair<string, string>("token", "Shl"),
                             new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon: [Shell]"),
-                            new KeyValuePair<string, string>("shell", shell),
+                            new KeyValuePair<string, string>("value", shell),
+                        }
+                    );
+                }
+
+                if (userinit != null)
+                {
+                    list.Add(
+                        new List<KeyValuePair<string, string>>() {
+                            new KeyValuePair<string, string>("token", "Shl"),
+                            new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon: [Userinit]"),
+                            new KeyValuePair<string, string>("value", userinit),
                         }
                     );
                 }
@@ -37,6 +49,7 @@ namespace CScan.Components
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryKey))
             {
                 string shell = (string)key.GetValue("Shell");
+                string userinit = (string)key.GetValue("Userinit");
 
                 if (shell != null)
                 {
@@ -45,6 +58,17 @@ namespace CScan.Components
                             new KeyValuePair<string, string>("token", "Shl"),
                             new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon [Shell] =>"),
                             new KeyValuePair<string, string>("shell", shell),
+                        }
+                    );
+                }
+
+                if (userinit != null)
+                {
+                    list.Add(
+                        new List<KeyValuePair<string, string>>() {
+                            new KeyValuePair<string, string>("token", "Shl"),
+                            new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon: [Userinit]"),
+                            new KeyValuePair<string, string>("value", userinit),
                         }
                     );
                 }
