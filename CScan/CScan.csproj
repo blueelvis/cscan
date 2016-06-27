@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticode.cs" />
+    <Compile Include="O21.cs" />
+    <Compile Include="O20.cs" />
     <Compile Include="Integrity.cs" />
     <Compile Include="Hosts.cs" />
     <Compile Include="Shell.cs" />

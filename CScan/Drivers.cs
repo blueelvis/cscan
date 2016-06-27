@@ -31,7 +31,7 @@ namespace CScan.Components
                         new KeyValuePair<string, string>("token", "Drv"),
                         new KeyValuePair<string, string>("path", path),
                         new KeyValuePair<string, string>("description", "(" + entry.GetPropertyValue("Description").ToString() + ")"),
-                        new KeyValuePair<string, string>("signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : null),
+                        new KeyValuePair<string, string>("signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : "[b](file not found)[/b]"),
                     });
                 }
             }

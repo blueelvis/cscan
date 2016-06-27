@@ -15,6 +15,8 @@ namespace CScan
             "IEProxy",
             "Processes",
             "RegistryRun",
+            "HiJackThis.O20",
+            "HiJackThis.O21",
             "Hosts",
             "Services",
             "Drivers",
