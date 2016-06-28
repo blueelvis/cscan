@@ -29,7 +29,7 @@ namespace CScan.Components
                                 new List<KeyValuePair<string, string>>() {
                                     new KeyValuePair<string, string>("token", "Prg"),
                                     new KeyValuePair<string, string>("display_name", displayName),
-                                    new KeyValuePair<string, string>("install_location", installLocation != null ? "[b]" + installLocation + "[/b]" : null),
+                                    new KeyValuePair<string, string>("install_location", installLocation != "" ? "[b]" + installLocation + "[/b]" : null),
                                 }
                             );
                         }

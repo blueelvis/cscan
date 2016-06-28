@@ -22,8 +22,8 @@ namespace CScan.Components
             {
                 list.Add(new List<KeyValuePair<string, string>>() {
                     new KeyValuePair<string, string>("token", "Svc"),
-                    new KeyValuePair<string, string>("name", service.ServiceName),
-                    new KeyValuePair<string, string>("imagePath", "[b]" + GetImagePath(service.ServiceName) + "[/b]"),
+                    new KeyValuePair<string, string>("name", "[b]" + service.ServiceName + "[/b]"),
+                    new KeyValuePair<string, string>("imagePath", GetImagePath(service.ServiceName)),
                 });
             }
 

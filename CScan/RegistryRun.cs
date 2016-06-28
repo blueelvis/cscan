@@ -56,9 +56,9 @@ namespace CScan.Components
 
                     list.Add(
                         new List<KeyValuePair<string, string>> () {
-                            new KeyValuePair<string, string>("token", type),
-                            new KeyValuePair<string, string>("key", root + @"\..\" + valueName + " =>"),
-                            new KeyValuePair<string, string>("value", "[b]" + value + "[/b]"),
+                            new KeyValuePair<string, string>("token", "Run"),
+                            new KeyValuePair<string, string>("key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]"),
+                            new KeyValuePair<string, string>("value", value),
                         }
                     );
                 }
