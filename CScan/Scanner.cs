@@ -34,22 +34,28 @@ namespace CScan
             InitializeComponents();
         }
 
-        public void Scan(ref System.Windows.Forms.TextBox status, string encryptionKey = null)
+        public void Scan(ref System.Windows.Forms.RichTextBox status, string encryptionKey = null)
         {
             Report report = new Report();
 
             foreach (Component component in initializedComponents)
             {
-                status.Text = "Running " + component.GetType().Name + "...";
+                status.Text = status.Text + "Running " + component.GetType().Name + "..." + System.Environment.NewLine;
 
-                component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
+                try
+                {
+                    component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
+                } catch (Exception)
+                {
+                    status.Text = status.Text + component.GetType().Name + " failed!" + System.Environment.NewLine;
+                }
             }
 
             string path = report.WriteToFile(encryptionKey);
 
             Process.Start("notepad.exe", path);
 
-            status.Text = "Success!";
+            status.Text = status.Text + "Success!";
         }
 
         protected void InitializeComponents()

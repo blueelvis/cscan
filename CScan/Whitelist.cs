@@ -14,14 +14,25 @@ namespace CScan
             
         };
 
+        private static Dictionary<string, bool> hashCache = new Dictionary<string, bool>();
+
         private static SHA256 hasher = SHA256Managed.Create();
 
         public bool IsFileWhitelisted(string path)
         {
+            if (hashCache.ContainsKey(path))
+            {
+                return hashCache[path];
+            }
+
             FileStream file = OpenFile(path);
             string hash = hasher.ComputeHash(file).ToString();
 
-            return hashes.Contains(hash);
+            bool result = hashes.Contains(hash);
+
+            hashCache[path] = result;
+
+            return result;
         }
 
         private FileStream OpenFile(string path)
