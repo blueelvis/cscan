@@ -20,7 +20,7 @@ namespace CScan.Components
 
             list.Add(new Dictionary<string, string>()
             {
-                {"raw", "Running from " + System.Reflection.Assembly.GetExecutingAssembly().Location.Substring(0, 3) + " as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name},
+                {"raw", "Running from " + System.Reflection.Assembly.GetExecutingAssembly().Location.Substring(0, 3) + " as " + System.Security.Principal.WindowsIdentity.GetCurrent().Name + " on " + DateTime.Now.ToString()},
             });
 
             list.Add(new Dictionary<string, string>()
