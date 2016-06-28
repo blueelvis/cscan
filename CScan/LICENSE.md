@@ -1,6 +1,6 @@
 ﻿Copyright 2016 Certly, Inc.
 
-This application makes use of strong cryptography and may be subject to U.S. export restrictions. Use of this application constitutes an agreement that U.S. persons are not prohibited from exporting cryptography products to you.
+**This application makes use of strong cryptography and may be subject to U.S. export restrictions. Certly's binary and source distributions of the application have been assigned Encryption Registration Number R111950 by the Bureau of Industry and Security. Use of this application constitutes an agreement that U.S. persons are not prohibited from exporting cryptography products to you.**
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

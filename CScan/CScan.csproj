@@ -99,7 +99,6 @@
     <Compile Include="Header.cs" />
     <Compile Include="Report.cs" />
     <Compile Include="RegistryRun.cs" />
-    <Compile Include="Test.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>

@@ -10,7 +10,7 @@ namespace CScan.Components
 {
     class Drivers : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_SystemDriver");
 
@@ -27,11 +27,11 @@ namespace CScan.Components
                         exists = false;
                     }
 
-                    list.Add(new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("token", "Drv"),
-                        new KeyValuePair<string, string>("path", path),
-                        new KeyValuePair<string, string>("description", "(" + entry.GetPropertyValue("Description").ToString() + ")"),
-                        new KeyValuePair<string, string>("signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : "[b](file not found)[/b]"),
+                    list.Add(new Dictionary<string, string>() {
+                        { "token", "Drv" },
+                        { "path", path },
+                        { "description", "(" + entry.GetPropertyValue("Description").ToString() + ")" },
+                        { "signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : "[b](file not found)[/b]" },
                     });
                 }
             }

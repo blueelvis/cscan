@@ -8,6 +8,6 @@ namespace CScan.Components
 {
         interface Component
         {
-            bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> line);
+            bool Run(ref CScan.Report report, List<Dictionary<string, string>> line);
         }
 }

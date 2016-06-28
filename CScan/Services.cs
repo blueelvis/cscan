@@ -12,7 +12,7 @@ namespace CScan.Components
 {
     class Services : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             ServiceController[] services = ServiceController.GetServices();
 
@@ -20,10 +20,10 @@ namespace CScan.Components
 
             foreach (ServiceController service in sortedServices)
             {
-                list.Add(new List<KeyValuePair<string, string>>() {
-                    new KeyValuePair<string, string>("token", "Svc"),
-                    new KeyValuePair<string, string>("name", "[b]" + service.ServiceName + "[/b]"),
-                    new KeyValuePair<string, string>("imagePath", GetImagePath(service.ServiceName)),
+                list.Add(new Dictionary<string, string>() {
+                    { "token", "Svc" },
+                    { "name", "[b]" + service.ServiceName + "[/b]" },
+                    { "imagePath", GetImagePath(service.ServiceName) },
                 });
             }
 

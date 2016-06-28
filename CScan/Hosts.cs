@@ -10,7 +10,7 @@ namespace CScan.Components
 {
     class Hosts : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             string[] hosts = File.ReadAllLines(@"C:\Windows\System32\drivers\etc\hosts");
 
@@ -18,9 +18,9 @@ namespace CScan.Components
             {
                 if (line != "" && line.Substring(0, 1) != "#")
                 {
-                    list.Add(new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("token", "Hst"),
-                        new KeyValuePair<string, string>("contents", line),
+                    list.Add(new Dictionary<string, string> {
+                        { "token", "Hst" },
+                        { "contents", line },
                     });
                 }
             }

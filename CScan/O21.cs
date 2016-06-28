@@ -10,7 +10,7 @@ namespace CScan.Components.HiJackThis
 {
     class O21 : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             bool hasEntries = false;
 
@@ -23,11 +23,11 @@ namespace CScan.Components.HiJackThis
                     string value = (string) key.GetValue(valueName);
                     string dll = DllFromClsid(value);
 
-                    list.Add(new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("token", "O21"),
-                        new KeyValuePair<string, string>("clsid", value),
-                        new KeyValuePair<string, string>("name", valueName),
-                        new KeyValuePair<string, string>("dll", dll == null ? "(file not found)" : dll),
+                    list.Add(new Dictionary<string, string>() {
+                        { "token", "O21" },
+                        { "clsid", value },
+                        { "name", valueName },
+                        { "dll", dll == null ? "(file not found)" : dll },
                     });
 
                     hasEntries = true;

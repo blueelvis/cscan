@@ -12,19 +12,19 @@ namespace CScan
 {
     class Report
     {
-        protected List<List<KeyValuePair<string, string>>> lines = new List<List<KeyValuePair<string, string>>>();
+        protected List<Dictionary<string, string>> lines = new List<Dictionary<string, string>>();
 
         protected string publicKey;
 
-        public void Add(List<List<KeyValuePair<string, string>>> newLines)
+        public void Add(List<Dictionary<string, string>> newLines)
         {
-            foreach (List<KeyValuePair<string, string>> line in newLines)
+            foreach (Dictionary<string, string> line in newLines)
             {
                 lines.Add(line);
             }
 
             // Add an extra empty line between sections.
-            lines.Add(new List<KeyValuePair<string, string>>());
+            lines.Add(new Dictionary<string, string>());
         }
 
         public string WriteToFile(string externalKey = null)
@@ -42,7 +42,7 @@ namespace CScan
         {
             string output = "";
 
-            foreach(List<KeyValuePair<string, string>> line in lines)
+            foreach(Dictionary<string, string> line in lines)
             {
                 foreach (KeyValuePair<string, string> list in line)
                 {

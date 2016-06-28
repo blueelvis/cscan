@@ -11,7 +11,7 @@ namespace CScan.Components
 {
     class IEProxy : Component
     {
-        public bool Run(ref Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
             string registryPath = @"Software\Microsoft\Windows\CurrentVersion\Internet Settings";
 
@@ -22,9 +22,9 @@ namespace CScan.Components
 
             if (enabled == "1")
             {
-                list.Add(new List<KeyValuePair<string, string>>() {
-                    new KeyValuePair<string, string>("token", "Prx"),
-                    new KeyValuePair<string, string>("server", key.GetValue("ProxyServer").ToString()),
+                list.Add(new Dictionary<string, string>() {
+                    { "token", "Prx" },
+                    { "server", key.GetValue("ProxyServer").ToString() },
                 });
 
                 report.Add(list);

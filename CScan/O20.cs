@@ -10,7 +10,7 @@ namespace CScan.Components.HiJackThis
 {
     class O20 : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion\Windows"))
             {
@@ -18,9 +18,9 @@ namespace CScan.Components.HiJackThis
 
                 if (value != "")
                 {
-                    list.Add(new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("token", "O20"),
-                        new KeyValuePair<string, string>("value", value),
+                    list.Add(new Dictionary<string, string>() {
+                        { "token", "O20" },
+                        { "value", value },
                     });
 
                     report.Add(list);

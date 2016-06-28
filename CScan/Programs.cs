@@ -10,7 +10,7 @@ namespace CScan.Components
 {
     class Programs : Component
     {
-        public bool Run(ref Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
             string registryKey = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
 
@@ -26,10 +26,10 @@ namespace CScan.Components
                         if (displayName != null)
                         {
                             list.Add(
-                                new List<KeyValuePair<string, string>>() {
-                                    new KeyValuePair<string, string>("token", "Prg"),
-                                    new KeyValuePair<string, string>("display_name", displayName),
-                                    new KeyValuePair<string, string>("install_location", installLocation != "" ? "[b]" + installLocation + "[/b]" : null),
+                                new Dictionary<string, string>() {
+                                    { "token", "Prg" },
+                                    { "display_name", displayName },
+                                    { "install_location", installLocation != "" ? "[b]" + installLocation + "[/b]" : null },
                                 }
                             );
                         }

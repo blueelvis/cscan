@@ -14,7 +14,7 @@ namespace CScan.Components
 
         protected string RunOnceKey = @"Software\Microsoft\Windows\CurrentVersion\RunOnce";
 
-        public bool Run(ref Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
             foreach (string registryKey in ConsolidateKeys())
             {
@@ -46,7 +46,7 @@ namespace CScan.Components
             };
         }
 
-        protected List<List<KeyValuePair<string, string>>> IterateOverValues(List<List<KeyValuePair<string, string>>> list, Microsoft.Win32.RegistryKey key, string type, string root)
+        protected List<Dictionary<string, string>> IterateOverValues(List<Dictionary<string, string>> list, Microsoft.Win32.RegistryKey key, string type, string root)
         {
             foreach (string valueName in key.GetValueNames())
             {
@@ -55,10 +55,10 @@ namespace CScan.Components
                     string value = (string)key.GetValue(valueName);
 
                     list.Add(
-                        new List<KeyValuePair<string, string>> () {
-                            new KeyValuePair<string, string>("token", "Run"),
-                            new KeyValuePair<string, string>("key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]"),
-                            new KeyValuePair<string, string>("value", value),
+                        new Dictionary<string, string>() {
+                            { "token", "Run" },
+                            { "key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]" },
+                            { "value", value },
                         }
                     );
                 }

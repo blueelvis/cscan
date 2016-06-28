@@ -10,7 +10,7 @@ namespace CScan.Components
 {
     class Shell : Component
     {
-        public bool Run(ref Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
             string registryKey = @"Software\Microsoft\Windows NT\CurrentVersion\Winlogon";
 
@@ -26,10 +26,10 @@ namespace CScan.Components
                 if (shell != null)
                 {
                     list.Add(
-                        new List<KeyValuePair<string, string>>() {
-                            new KeyValuePair<string, string>("token", "Shl"),
-                            new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon: [Shell]"),
-                            new KeyValuePair<string, string>("value", shell),
+                        new Dictionary<string, string> {
+                            { "token", "Shl" },
+                            { "key", @"HKLM\..\Winlogon: [Shell]" },
+                            { "value", shell },
                         }
                     );
                 }
@@ -37,10 +37,10 @@ namespace CScan.Components
                 if (userinit != null)
                 {
                     list.Add(
-                        new List<KeyValuePair<string, string>>() {
-                            new KeyValuePair<string, string>("token", "Shl"),
-                            new KeyValuePair<string, string>("key", @"HKLM\..\Winlogon: [Userinit]"),
-                            new KeyValuePair<string, string>("value", userinit),
+                        new Dictionary<string, string> {
+                            { "token", "Shl" },
+                            { "key", @"HKLM\..\Winlogon: [Userinit]" },
+                            { "value", userinit },
                         }
                     );
                 }
@@ -54,10 +54,10 @@ namespace CScan.Components
                 if (shell != null)
                 {
                     list.Add(
-                        new List<KeyValuePair<string, string>>() {
-                            new KeyValuePair<string, string>("token", "Shl"),
-                            new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon: [Shell] =>"),
-                            new KeyValuePair<string, string>("shell", shell),
+                        new Dictionary<string, string> {
+                            { "token", "Shl" },
+                            { "key", @"HKCU\..\Winlogon: [Shell]" },
+                            { "value", shell },
                         }
                     );
                 }
@@ -65,10 +65,10 @@ namespace CScan.Components
                 if (userinit != null)
                 {
                     list.Add(
-                        new List<KeyValuePair<string, string>>() {
-                            new KeyValuePair<string, string>("token", "Shl"),
-                            new KeyValuePair<string, string>("key", @"HKCU\..\Winlogon: [Userinit]"),
-                            new KeyValuePair<string, string>("value", userinit),
+                        new Dictionary<string, string> {
+                            { "token", "Shl" },
+                            { "key", @"HKCU\..\Winlogon: [Userinit]" },
+                            { "value", userinit },
                         }
                     );
                 }

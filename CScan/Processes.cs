@@ -10,7 +10,7 @@ namespace CScan.Components
 {
     class Processes : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             Process[] processes = Process.GetProcesses();
 
@@ -36,10 +36,10 @@ namespace CScan.Components
                     continue;
                 }
         
-                list.Add(new List<KeyValuePair<string, string>>() {
-                    new KeyValuePair<string, string>("token", "Prc"),
-                    new KeyValuePair<string, string>("pid", process.Id.ToString()),
-                    new KeyValuePair<string, string>("path", path),
+                list.Add(new Dictionary<string, string> {
+                    { "token", "Prc" },
+                    { "pid", process.Id.ToString() },
+                    { "path", path },
                 });
             }
 

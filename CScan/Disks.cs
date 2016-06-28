@@ -10,14 +10,14 @@ namespace CScan.Components
 {
     class Disks : Component
     {
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                list.Add(new List<KeyValuePair<string, string>>() {
-                    new KeyValuePair<string, string>("token", "Dsk"),
-                    new KeyValuePair<string, string>("name", drive.Name),
-                    new KeyValuePair<string, string>("label", drive.VolumeLabel),
+                list.Add(new Dictionary<string, string>() {
+                    { "token", "Dsk" },
+                    { "name", drive.Name },
+                    { "label", drive.VolumeLabel },
                 });
             }
 

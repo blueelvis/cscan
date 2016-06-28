@@ -12,6 +12,7 @@ namespace CScan
     {
         protected string[] components = {
             "Header",
+            "Integrity",
             "IEProxy",
             "Processes",
             "Environment",
@@ -44,7 +45,7 @@ namespace CScan
 
                 try
                 {
-                    component.Run(ref report, new List<List<KeyValuePair<string, string>>>());
+                    component.Run(ref report, new List<Dictionary<string, string>>());
                 } catch (Exception)
                 {
                     status.Text = status.Text + component.GetType().Name + " failed!" + System.Environment.NewLine;

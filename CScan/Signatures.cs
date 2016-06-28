@@ -22,16 +22,16 @@ namespace CScan.Components
             System.Reflection.Assembly.GetExecutingAssembly().Location,
         };
 
-        public bool Run(ref CScan.Report report, List<List<KeyValuePair<string, string>>> list)
+        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
         {
             foreach (string file in files)
             {
                 bool exists = File.Exists(file);
 
-                list.Add(new List<KeyValuePair<string, string>>() {
-                    new KeyValuePair<string, string>("token", "Sig"),
-                    new KeyValuePair<string, string>("file", file),
-                    new KeyValuePair<string, string>("signed", exists ? !Authenticode.IsSigned(file, true) ? "[b]is not signed[/b]" : "is signed" : "[b]does not exist[/b]"),
+                list.Add(new Dictionary<string, string>() {
+                    { "token", "Sig" },
+                    { "file", file },
+                    { "signed", exists ? !Authenticode.IsSigned(file, true) ? "[b]is not signed[/b]" : "is signed" : "[b]does not exist[/b]" },
                 });
             }
 
