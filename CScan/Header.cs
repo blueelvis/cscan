@@ -22,7 +22,7 @@ namespace CScan.Components
             });
 
             list.Add(new List<KeyValuePair<string, string>>() {
-                new KeyValuePair<string, string>("raw", "Windows Version " + Environment.OSVersion.Version + " Language " + ci.EnglishName),
+                new KeyValuePair<string, string>("raw", "Windows Version " + System.Environment.OSVersion.Version + " Language " + ci.EnglishName),
             });
 
             dynamic totalMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;

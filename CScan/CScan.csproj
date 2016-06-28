@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authenticode.cs" />
+    <Compile Include="Environment.cs" />
     <Compile Include="O21.cs" />
     <Compile Include="O20.cs" />
     <Compile Include="Integrity.cs" />
