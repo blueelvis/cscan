@@ -83,6 +83,7 @@
     <Compile Include="O20.cs" />
     <Compile Include="Integrity.cs" />
     <Compile Include="Hosts.cs" />
+    <Compile Include="Programs.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

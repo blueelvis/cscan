@@ -15,6 +15,7 @@ namespace CScan
             "IEProxy",
             "Processes",
             "Environment",
+            "Shell",
             "RegistryRun",
             "HiJackThis.O20",
             "HiJackThis.O21",
@@ -22,8 +23,8 @@ namespace CScan
             "Services",
             "Drivers",
             "Disks",
-            "Shell",
             "Signatures",
+            "Programs",
         };
 
         protected List<Component> initializedComponents = new List<Component>();
