@@ -28,15 +28,15 @@ namespace CScan.Components
                 {"raw", "Windows Version " + System.Environment.OSVersion.Version + " Language " + ci.EnglishName},
             });
 
-            dynamic totalMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
-            totalMemory = (int)(totalMemory / 1000000000);
+            Double totalMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
+            totalMemory = totalMemory / 1000000000;
 
-            dynamic freeMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory;
-            freeMemory = (int)(freeMemory / 1000000000);
+            Double freeMemory = new Microsoft.VisualBasic.Devices.ComputerInfo().AvailablePhysicalMemory;
+            freeMemory = freeMemory / 1000000000;
 
             list.Add(new Dictionary<string, string>()
             {
-                {"raw", totalMemory + "GB RAM installed; " + freeMemory + "GB RAM available"},
+                {"raw", totalMemory.ToString("N1") + "GB RAM installed; " + freeMemory.ToString("N1") + "GB RAM available"},
             });
 
             report.Add(list);
