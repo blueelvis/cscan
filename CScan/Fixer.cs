@@ -47,7 +47,11 @@ namespace CScan
                 return;
             }
 
-            //
+            Command resolvedCommand = ResolveCommand(command);
+
+            string[] arguments = parts.Where((source, index) => index != 0).ToArray();
+
+            resolvedCommand.Run(new List<Dictionary<string, string>>(), arguments);
         }
 
         private void ExecuteProcess(string command)
@@ -55,7 +59,7 @@ namespace CScan
             Process.Start("cmd", "/c " + command);
         }
 
-        private dynamic ResolveCommand(string command)
+        private Command ResolveCommand(string command)
         {
             Type t = Type.GetType("CScan.Commands." + command);
 
