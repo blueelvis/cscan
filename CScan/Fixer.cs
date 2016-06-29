@@ -34,16 +34,23 @@ namespace CScan
             }
         }
 
+        private void ProcessLine(string line)
+        {
+            string[] parts = line.Split(' ');
+
+            string command = line[0].ToString();
+
+            if (!commands.Contains(command))
+            {
+                //
+            }
+        }
+
         private dynamic ResolveCommand(string command)
         {
             Type t = Type.GetType("CScan.Commands." + command);
 
             return (Command)Activator.CreateInstance(t);
-        }
-
-        private void ProcessLine(string line)
-        {
-            //
         }
     }
 }
