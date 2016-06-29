@@ -34,9 +34,11 @@ namespace CScan
             scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void Fix_Click(object sender, EventArgs e)
         {
+            Fixer fixer = new Fixer();
 
+            fixer.Fix(ref statusText);
         }
     }
 }

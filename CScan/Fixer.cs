@@ -28,6 +28,12 @@ namespace CScan
                 fileName = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\" + "fix.txt";
             }
 
+            if (!File.Exists(fileName))
+            {
+                richTextBox.Text = "Fix file does not exist!";
+                return;
+            }
+
             string[] contents = File.ReadAllLines(fileName);
 
             foreach (string line in contents)

@@ -54,6 +54,7 @@
             this.Fix.TabIndex = 1;
             this.Fix.Text = "Fix";
             this.Fix.UseVisualStyleBackColor = true;
+            this.Fix.Click += new System.EventHandler(this.Fix_Click);
             // 
             // encryptionKey
             // 
