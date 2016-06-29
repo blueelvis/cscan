@@ -11,14 +11,15 @@ namespace CScan
 {
     class Fixer
     {
-        public static string[] commands =
+        public static Dictionary<string, string> commands = new Dictionary<string, string>()
         {
-            "RunCommand",
+            // Command => Class
+            { "Run", "RunCommand" },
         };
 
         private System.Windows.Forms.RichTextBox status;
 
-        public void ProcessFix(ref System.Windows.Forms.RichTextBox richTextBox, string fileName = null)
+        public void Fix(ref System.Windows.Forms.RichTextBox richTextBox, string fileName = null)
         {
             status = richTextBox;
 
@@ -31,7 +32,12 @@ namespace CScan
 
             foreach (string line in contents)
             {
-                ProcessLine(line);
+                string cleanLine = line.Trim();
+
+                if (cleanLine == "" || cleanLine.Substring(0, 1) == "#")
+                    continue;
+
+                ProcessLine(cleanLine);
             }
         }
 
@@ -41,13 +47,13 @@ namespace CScan
 
             string command = line[0].ToString();
 
-            if (!commands.Contains(command))
+            if (!commands.ContainsKey(command))
             {
                 ExecuteProcess(String.Join(" ", parts));
                 return;
             }
 
-            Command resolvedCommand = ResolveCommand(command);
+            Command resolvedCommand = ResolveCommand(commands[command]);
 
             string[] arguments = parts.Where((source, index) => index != 0).ToArray();
 
