@@ -32,10 +32,12 @@ namespace CScan
                 RedirectStandardOutput = true                                               
             };
 
-            Process process = Process.Start(psi);
-            process.WaitForExit();
+            using (Process process = Process.Start(psi))
+            {
+                process.WaitForExit();
 
-            return process.ExitCode == 0;
+                return process.ExitCode == 0;
+            }
         }
     }
 }
