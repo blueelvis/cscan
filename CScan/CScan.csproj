@@ -77,29 +77,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authenticode.cs" />
-    <Compile Include="Environment.cs" />
-    <Compile Include="O21.cs" />
-    <Compile Include="O20.cs" />
-    <Compile Include="Integrity.cs" />
-    <Compile Include="Hosts.cs" />
-    <Compile Include="Programs.cs" />
-    <Compile Include="Shell.cs" />
+    <Compile Include="Components\Authenticode.cs" />
+    <Compile Include="Components\Environment.cs" />
+    <Compile Include="Components\O21.cs" />
+    <Compile Include="Components\O20.cs" />
+    <Compile Include="Components\Integrity.cs" />
+    <Compile Include="Components\Hosts.cs" />
+    <Compile Include="Components\Programs.cs" />
+    <Compile Include="Components\Shell.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Disks.cs" />
-    <Compile Include="Signatures.cs" />
-    <Compile Include="IEProxy.cs" />
-    <Compile Include="Services.cs" />
-    <Compile Include="Processes.cs" />
-    <Compile Include="Drivers.cs" />
-    <Compile Include="Header.cs" />
-    <Compile Include="Report.cs" />
-    <Compile Include="RegistryRun.cs" />
-    <Compile Include="Component.cs" />
+    <Compile Include="Components\Disks.cs" />
+    <Compile Include="Components\Signatures.cs" />
+    <Compile Include="Components\IEProxy.cs" />
+    <Compile Include="Components\Services.cs" />
+    <Compile Include="Components\Processes.cs" />
+    <Compile Include="Components\Drivers.cs" />
+    <Compile Include="Components\Header.cs" />
+    <Compile Include="Components\Report.cs" />
+    <Compile Include="Components\RegistryRun.cs" />
+    <Compile Include="Components\Component.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +128,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.manifest" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="LICENSE.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
