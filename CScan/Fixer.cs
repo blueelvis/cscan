@@ -1,6 +1,7 @@
 ﻿using CScan.Commands;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,8 +43,16 @@ namespace CScan
 
             if (!commands.Contains(command))
             {
-                //
+                ExecuteProcess(String.Join(" ", parts));
+                return;
             }
+
+            //
+        }
+
+        private void ExecuteProcess(string command)
+        {
+            Process.Start("cmd", "/c " + command);
         }
 
         private dynamic ResolveCommand(string command)
