@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\RunCommand.cs" />
     <Compile Include="Components\Authenticode.cs" />
     <Compile Include="Components\Environment.cs" />
     <Compile Include="Components\O21.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Components\Hosts.cs" />
     <Compile Include="Components\Programs.cs" />
     <Compile Include="Components\Shell.cs" />
+    <Compile Include="Fixer.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
