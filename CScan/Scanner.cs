@@ -43,13 +43,7 @@ namespace CScan
             {
                 status.Text = status.Text + "Running " + component.GetType().Name + "..." + System.Environment.NewLine;
 
-                try
-                {
-                    component.Run(ref report, new List<Dictionary<string, string>>());
-                } catch (Exception)
-                {
-                    status.Text = status.Text + component.GetType().Name + " failed!" + System.Environment.NewLine;
-                }
+                component.Run(ref report, new List<Dictionary<string, string>>());
             }
 
             string path = report.WriteToFile(encryptionKey);
