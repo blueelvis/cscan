@@ -51,7 +51,13 @@ namespace CScan
 
                 watch.Stop();
 
-                Telemetry.Point("Component." + componentName, watch.ElapsedMilliseconds.ToString());
+                try
+                {
+                    Telemetry.Point("Component." + componentName, watch.ElapsedMilliseconds.ToString());
+                } catch (System.Net.WebException)
+                {
+                    //
+                }
             }
 
             string path = report.WriteToFile(encryptionKey);
