@@ -41,9 +41,17 @@ namespace CScan
 
             foreach (Component component in initializedComponents)
             {
-                status.Text = status.Text + "Running " + component.GetType().Name + "..." + System.Environment.NewLine;
+                string componentName = component.GetType().Name;
+
+                status.Text = status.Text + "Running " + componentName + "..." + System.Environment.NewLine;
+
+                var watch = Stopwatch.StartNew();
 
                 component.Run(ref report, new List<Dictionary<string, string>>());
+
+                watch.Stop();
+
+                Telemetry.Point("Component." + componentName, watch.ElapsedMilliseconds.ToString());
             }
 
             string path = report.WriteToFile(encryptionKey);

@@ -18,13 +18,17 @@ namespace CScan
 
         static Telemetry()
         {
-            hasConnection = CheckForInternetConnection();
+            // hasConnection = CheckForInternetConnection();
+
+            hasConnection = true;
         }
 
         public static void Point(string key, string value)
         {
             if (!hasConnection)
                 return;
+
+            Console.WriteLine("Submitting telemetry for " + key);
 
             WebRequest request = WebRequest.Create(endpoint + "/submit");
 
