@@ -31,7 +31,7 @@ namespace CScan.Components
                         { "token", "Drv" },
                         { "path", path },
                         { "description", "(" + entry.GetPropertyValue("Description").ToString() + ")" },
-                        { "signed", exists ? !Authenticode.IsSigned(path) ? "[b](unsigned)[/b]" : null : "[b](file not found)[/b]" },
+                        { "exists", !exists ? "[b](file not found)[/b]" : null },
                     });
                 }
             }
