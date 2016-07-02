@@ -20,12 +20,7 @@ namespace CScan.Components
                 {
                     string path = entry.GetPropertyValue("PathName").ToString();
 
-                    bool exists = true;
-
-                    if (!File.Exists(path))
-                    {
-                        exists = false;
-                    }
+                    bool exists = File.Exists(path);
 
                     list.Add(new Dictionary<string, string>() {
                         { "token", "Drv" },
