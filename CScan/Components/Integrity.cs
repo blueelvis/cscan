@@ -16,7 +16,7 @@ namespace CScan.Components
 
             using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryKey))
             {
-                if (key != null && (int)key.GetValue("DisableTaskMgr") != 0)
+                if (key != null && key.GetValue("DisableTaskMgr") != null && (int)key.GetValue("DisableTaskMgr") != 0)
                 {
                     AddToList(list, "HKCU", "System", "DisableTaskMgr", key.GetValue("DisableTaskMgr").ToString());
                 }
