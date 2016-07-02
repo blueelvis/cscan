@@ -14,11 +14,17 @@ namespace CScan.Components
         {
             foreach (DriveInfo drive in DriveInfo.GetDrives())
             {
-                list.Add(new Dictionary<string, string>() {
-                    { "token", "Dsk" },
-                    { "name", drive.Name },
-                    { "label", drive.VolumeLabel },
-                });
+                try
+                {
+                    list.Add(new Dictionary<string, string>() {
+                        { "token", "Dsk" },
+                        { "name", drive.Name },
+                        { "label", drive.VolumeLabel },
+                    });
+                } catch (IOException)
+                {
+                    //
+                }
             }
 
             report.Add(list);
