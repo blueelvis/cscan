@@ -106,8 +106,8 @@
     <Compile Include="Commands\RunCommand.cs" />
     <Compile Include="Authenticode.cs" />
     <Compile Include="Components\Environment.cs" />
-    <Compile Include="Components\O21.cs" />
-    <Compile Include="Components\O20.cs" />
+    <Compile Include="Components\HiJackThis\O21.cs" />
+    <Compile Include="Components\HiJackThis\O20.cs" />
     <Compile Include="Components\Integrity.cs" />
     <Compile Include="Components\Hosts.cs" />
     <Compile Include="Components\Programs.cs" />
