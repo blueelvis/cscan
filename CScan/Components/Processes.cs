@@ -37,8 +37,8 @@ namespace CScan.Components
                 }
         
                 list.Add(new Dictionary<string, string> {
-                    { "token", "Prc" },
-                    { "pid", process.Id.ToString() },
+                    { "token", "Process" },
+                    { "pid", "(" + process.Id.ToString() + ")" },
                     { "path", path },
                 });
             }

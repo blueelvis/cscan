@@ -52,7 +52,7 @@ namespace CScan
                     }
                     else if (list.Value != null)
                     {
-                        output = output + "[" + list.Value + "] ";
+                        output = output + list.Value + ": ";
                     }
                 }
 
