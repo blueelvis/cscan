@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.Components
 {
-    class RegistryRun : Component
+    internal class RegistryRun : Component
     {
         protected string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
@@ -16,18 +11,18 @@ namespace CScan.Components
 
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            foreach (string registryKey in ConsolidateKeys())
+            foreach (var registryKey in ConsolidateKeys())
             {
-                string[] splitKeys = registryKey.Split('\\');
+                var splitKeys = registryKey.Split('\\');
 
-                string lastKey = splitKeys[splitKeys.Length - 1];
+                var lastKey = splitKeys[splitKeys.Length - 1];
 
-                using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey))
+                using (var key = Registry.LocalMachine.OpenSubKey(registryKey))
                 {
                     list = IterateOverValues(list, key, lastKey, "HKLM");
                 }
 
-                using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(registryKey))
+                using (var key = Registry.CurrentUser.OpenSubKey(registryKey))
                 {
                     list = IterateOverValues(list, key, lastKey, "HKCU");
                 }
@@ -40,27 +35,30 @@ namespace CScan.Components
 
         protected string[] ConsolidateKeys()
         {
-            return new string[] {
+            return new[]
+            {
                 RunKey,
-                RunOnceKey,
+                RunOnceKey
             };
         }
 
-        protected List<Dictionary<string, string>> IterateOverValues(List<Dictionary<string, string>> list, Microsoft.Win32.RegistryKey key, string type, string root)
+        protected List<Dictionary<string, string>> IterateOverValues(List<Dictionary<string, string>> list,
+            RegistryKey key, string type, string root)
         {
-            foreach (string valueName in key.GetValueNames())
+            foreach (var valueName in key.GetValueNames())
             {
-                if (key.GetValueKind(valueName) == Microsoft.Win32.RegistryValueKind.String)
+                if (key.GetValueKind(valueName) == RegistryValueKind.String)
                 {
-                    string value = (string)key.GetValue(valueName);
+                    var value = (string) key.GetValue(valueName);
 
                     list.Add(
-                        new Dictionary<string, string>() {
-                            { "token", "Run" },
-                            { "key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]" },
-                            { "value", value },
+                        new Dictionary<string, string>
+                        {
+                            {"token", "Run"},
+                            {"key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]"},
+                            {"value", value}
                         }
-                    );
+                        );
                 }
             }
 

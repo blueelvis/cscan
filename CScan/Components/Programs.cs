@@ -1,37 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.Components
 {
-    class Programs : Component
+    internal class Programs : Component
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            string registryKey = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+            var registryKey = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
 
-            using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(registryKey))
+            using (var key = Registry.LocalMachine.OpenSubKey(registryKey))
             {
-                foreach (string subKeyName in key.GetSubKeyNames())
+                foreach (var subKeyName in key.GetSubKeyNames())
                 {
-                    using (Microsoft.Win32.RegistryKey subKey = key.OpenSubKey(subKeyName))
+                    using (var subKey = key.OpenSubKey(subKeyName))
                     {
-                        string displayName = (string) subKey.GetValue("DisplayName");
-                        string installLocation = (string) subKey.GetValue("InstallLocation");
+                        var displayName = (string) subKey.GetValue("DisplayName");
+                        var installLocation = (string) subKey.GetValue("InstallLocation");
 
                         if (displayName != null)
                         {
                             list.Add(
-                                new Dictionary<string, string>() {
-                                    { "token", "Prg" },
-                                    { "display_name", displayName },
-                                    { "install_location", installLocation != "" ? "[b]" + installLocation + "[/b]" : null },
+                                new Dictionary<string, string>
+                                {
+                                    {"token", "Prg"},
+                                    {"display_name", displayName},
+                                    {
+                                        "install_location", installLocation != "" ? "[b]" + installLocation + "[/b]" : null
+                                    }
                                 }
-                            );
+                                );
                         }
                     }
                 }

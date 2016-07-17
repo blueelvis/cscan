@@ -1,25 +1,24 @@
-﻿using CScan.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using CScan.Commands;
 
 namespace CScan
 {
-    class Fixer
+    internal class Fixer
     {
-        public static Dictionary<string, string> commands = new Dictionary<string, string>()
+        public static Dictionary<string, string> commands = new Dictionary<string, string>
         {
             // Command => Class
-            { "Run", "RunCommand" },
+            {"Run", "RunCommand"}
         };
 
-        private System.Windows.Forms.RichTextBox status;
+        private RichTextBox status;
 
-        public void Fix(ref System.Windows.Forms.RichTextBox richTextBox, string fileName = null)
+        public void Fix(ref RichTextBox richTextBox, string fileName = null)
         {
             status = richTextBox;
 
@@ -34,11 +33,11 @@ namespace CScan
                 return;
             }
 
-            string[] contents = File.ReadAllLines(fileName);
+            var contents = File.ReadAllLines(fileName);
 
-            foreach (string line in contents)
+            foreach (var line in contents)
             {
-                string cleanLine = line.Trim();
+                var cleanLine = line.Trim();
 
                 if (cleanLine == "" || cleanLine.Substring(0, 1) == "#")
                     continue;
@@ -49,19 +48,19 @@ namespace CScan
 
         private void ProcessLine(string line)
         {
-            string[] parts = line.Split(' ');
+            var parts = line.Split(' ');
 
-            string command = line[0].ToString();
+            var command = line[0].ToString();
 
             if (!commands.ContainsKey(command))
             {
-                ExecuteProcess(String.Join(" ", parts));
+                ExecuteProcess(string.Join(" ", parts));
                 return;
             }
 
-            Command resolvedCommand = ResolveCommand(commands[command]);
+            var resolvedCommand = ResolveCommand(commands[command]);
 
-            string[] arguments = parts.Where((source, index) => index != 0).ToArray();
+            var arguments = parts.Where((source, index) => index != 0).ToArray();
 
             resolvedCommand.Run(new List<Dictionary<string, string>>(), arguments);
         }
@@ -73,9 +72,9 @@ namespace CScan
 
         private Command ResolveCommand(string command)
         {
-            Type t = Type.GetType("CScan.Commands." + command);
+            var t = Type.GetType("CScan.Commands." + command);
 
-            return (Command)Activator.CreateInstance(t);
+            return (Command) Activator.CreateInstance(t);
         }
     }
 }

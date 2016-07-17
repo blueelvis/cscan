@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CScan.Components
 {
-    class Processes : Component
+    internal class Processes : Component
     {
-        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            Process[] processes = Process.GetProcesses();
+            var processes = Process.GetProcesses();
 
-            List<Process> sortedProcesses = processes.OrderBy(process => process.Id).ToList();
+            var sortedProcesses = processes.OrderBy(process => process.Id).ToList();
 
-            foreach (Process process in sortedProcesses)
+            foreach (var process in sortedProcesses)
             {
                 if (process.Id == 0)
                 {
@@ -28,18 +26,21 @@ namespace CScan.Components
                 try
                 {
                     path = process.MainModule.FileName;
-                } catch (System.ComponentModel.Win32Exception)
+                }
+                catch (Win32Exception)
                 {
                     path = process.ProcessName;
-                } catch (System.InvalidOperationException)
+                }
+                catch (InvalidOperationException)
                 {
                     continue;
                 }
-        
-                list.Add(new Dictionary<string, string> {
-                    { "token", "Process" },
-                    { "pid", "(" + process.Id.ToString() + ")" },
-                    { "path", path },
+
+                list.Add(new Dictionary<string, string>
+                {
+                    {"token", "Process"},
+                    {"pid", "(" + process.Id + ")"},
+                    {"path", path}
                 });
             }
 

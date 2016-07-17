@@ -1,33 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.Components.HiJackThis
 {
-    class O21 : Component
+    internal class O21 : Component
     {
-        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            bool hasEntries = false;
+            var hasEntries = false;
 
-            using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
+            using (
+                var key =
+                    Registry.LocalMachine.OpenSubKey(
+                        @"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
             {
-                string[] valueNames = key.GetValueNames();
+                var valueNames = key.GetValueNames();
 
-                foreach (string valueName in valueNames)
+                foreach (var valueName in valueNames)
                 {
-                    string value = (string) key.GetValue(valueName);
-                    string dll = DllFromClsid(value);
+                    var value = (string) key.GetValue(valueName);
+                    var dll = DllFromClsid(value);
 
-                    list.Add(new Dictionary<string, string>() {
-                        { "token", "O21" },
-                        { "clsid", value },
-                        { "name", valueName },
-                        { "dll", dll == null ? "(file not found)" : dll },
+                    list.Add(new Dictionary<string, string>
+                    {
+                        {"token", "O21"},
+                        {"clsid", value},
+                        {"name", valueName},
+                        {"dll", dll == null ? "(file not found)" : dll}
                     });
 
                     hasEntries = true;
@@ -44,7 +43,7 @@ namespace CScan.Components.HiJackThis
 
         public string DllFromClsid(string clsid)
         {
-            using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Classes\CLSID\" + clsid))
+            using (var key = Registry.LocalMachine.OpenSubKey(@"Software\Classes\CLSID\" + clsid))
             {
                 if (key == null)
                 {

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
 namespace CScan
 {
-    class Report
+    internal class Report
     {
         protected List<Dictionary<string, string>> lines = new List<Dictionary<string, string>>();
 
@@ -18,7 +15,7 @@ namespace CScan
 
         public void Add(List<Dictionary<string, string>> newLines)
         {
-            foreach (Dictionary<string, string> line in newLines)
+            foreach (var line in newLines)
             {
                 lines.Add(line);
             }
@@ -29,22 +26,22 @@ namespace CScan
 
         public string WriteToFile(string externalKey = null)
         {
-            string homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
-            string path = homeDirectory + "\\Desktop\\" + Main.name + ".txt";
+            var path = homeDirectory + "\\Desktop\\" + Main.name + ".txt";
 
-            System.IO.File.WriteAllText(path, ToString(externalKey));
+            File.WriteAllText(path, ToString(externalKey));
 
             return path;
         }
 
         public string ToString(string externalKey = null)
         {
-            string output = "";
+            var output = "";
 
-            foreach(Dictionary<string, string> line in lines)
+            foreach (var line in lines)
             {
-                foreach (KeyValuePair<string, string> list in line)
+                foreach (var list in line)
                 {
                     if (list.Key != "token" && list.Value != null)
                     {
@@ -74,34 +71,35 @@ namespace CScan
 
         protected string Encrypt(string blob, string externalKey)
         {
-            ECDiffieHellmanCng self = new ECDiffieHellmanCng();
+            var self = new ECDiffieHellmanCng();
             self.KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash;
             self.HashAlgorithm = CngAlgorithm.Sha256;
 
             publicKey = Convert.ToBase64String(self.PublicKey.ToByteArray());
 
-            byte[] externalKeyBytes = Convert.FromBase64String(externalKey);
+            var externalKeyBytes = Convert.FromBase64String(externalKey);
 
-            ECDiffieHellmanPublicKey externalKeyObject = ECDiffieHellmanCngPublicKey.FromByteArray(externalKeyBytes, CngKeyBlobFormat.GenericPublicBlob);
+            var externalKeyObject = ECDiffieHellmanCngPublicKey.FromByteArray(externalKeyBytes,
+                CngKeyBlobFormat.GenericPublicBlob);
 
-            byte[] sharedSecret = self.DeriveKeyMaterial(externalKeyObject);
+            var sharedSecret = self.DeriveKeyMaterial(externalKeyObject);
 
-            AesManaged aes = new AesManaged();
+            var aes = new AesManaged();
             aes.Key = sharedSecret;
             aes.GenerateIV();
 
-            ICryptoTransform transform = aes.CreateEncryptor();
+            var transform = aes.CreateEncryptor();
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (var memoryStream = new MemoryStream())
             {
-                CryptoStream cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
+                var cryptoStream = new CryptoStream(memoryStream, transform, CryptoStreamMode.Write);
 
-                byte[] data = ASCIIEncoding.ASCII.GetBytes(blob);
+                var data = Encoding.ASCII.GetBytes(blob);
 
                 cryptoStream.Write(data, 0, data.Length);
                 cryptoStream.Close();
 
-                byte[] encryptedData = memoryStream.ToArray();
+                var encryptedData = memoryStream.ToArray();
 
                 blob = Convert.ToBase64String(encryptedData);
 
@@ -114,10 +112,10 @@ namespace CScan
 
         protected string AddEncryptionHeaders(string output)
         {
-            output = "-----BEGIN ENCRYPTED SCAN LOG-----" + Environment.NewLine 
-                + "Version: 1" + Environment.NewLine
-                + "Public-Key: " + publicKey + Environment.NewLine
-                + Environment.NewLine + output;
+            output = "-----BEGIN ENCRYPTED SCAN LOG-----" + Environment.NewLine
+                     + "Version: 1" + Environment.NewLine
+                     + "Public-Key: " + publicKey + Environment.NewLine
+                     + Environment.NewLine + output;
 
             output = output + Environment.NewLine + "-----END ENCRYPTED SCAN LOG-----";
 

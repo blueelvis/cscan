@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System.Windows.Forms;
 using CScan.Components;
+using Environment = System.Environment;
 
 namespace CScan
 {
-    class Scanner
+    internal class Scanner
     {
-        protected string[] components = {
+        protected string[] components =
+        {
             "Header",
-            "Integrity",
+            "DisabledApplications",
             "IEProxy",
             "Processes",
             "Environment",
@@ -25,7 +26,7 @@ namespace CScan
             "Drivers",
             "Disks",
             "Signatures",
-            "Programs",
+            "Programs"
         };
 
         protected List<Component> initializedComponents = new List<Component>();
@@ -35,15 +36,15 @@ namespace CScan
             InitializeComponents();
         }
 
-        public void Scan(ref System.Windows.Forms.RichTextBox status, string encryptionKey = null)
+        public void Scan(ref RichTextBox status, string encryptionKey = null)
         {
-            Report report = new Report();
+            var report = new Report();
 
-            foreach (Component component in initializedComponents)
+            foreach (var component in initializedComponents)
             {
-                string componentName = component.GetType().Name;
+                var componentName = component.GetType().Name;
 
-                status.Text = status.Text + "Running " + componentName + "..." + System.Environment.NewLine;
+                status.Text = status.Text + "Running " + componentName + "..." + Environment.NewLine;
 
                 var watch = Stopwatch.StartNew();
 
@@ -54,13 +55,14 @@ namespace CScan
                 try
                 {
                     Telemetry.Point("Component." + componentName, watch.ElapsedMilliseconds.ToString());
-                } catch (System.Net.WebException)
+                }
+                catch (WebException)
                 {
                     //
                 }
             }
 
-            string path = report.WriteToFile(encryptionKey);
+            var path = report.WriteToFile(encryptionKey);
 
             Process.Start("notepad.exe", path);
 
@@ -69,11 +71,11 @@ namespace CScan
 
         protected void InitializeComponents()
         {
-            foreach (string component in components)
+            foreach (var component in components)
             {
-                Type t = Type.GetType("CScan.Components." + component);
+                var t = Type.GetType("CScan.Components." + component);
 
-                Component initializedComponent = (Component) Activator.CreateInstance(t);
+                var initializedComponent = (Component) Activator.CreateInstance(t);
 
                 initializedComponents.Add(initializedComponent);
             }

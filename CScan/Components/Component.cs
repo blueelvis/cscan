@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CScan.Components
 {
-        interface Component
-        {
-            bool Run(ref CScan.Report report, List<Dictionary<string, string>> line);
-        }
+    internal interface Component
+    {
+        bool Run(ref Report report, List<Dictionary<string, string>> line);
+    }
 }

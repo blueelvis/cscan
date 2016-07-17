@@ -108,7 +108,7 @@
     <Compile Include="Components\Environment.cs" />
     <Compile Include="Components\HiJackThis\O21.cs" />
     <Compile Include="Components\HiJackThis\O20.cs" />
-    <Compile Include="Components\Integrity.cs" />
+    <Compile Include="Components\DisabledApplications.cs" />
     <Compile Include="Components\Hosts.cs" />
     <Compile Include="Components\Programs.cs" />
     <Compile Include="Components\Shell.cs" />

@@ -1,20 +1,17 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Management;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace CScan
 {
-    class Telemetry
+    internal class Telemetry
     {
-        private static string endpoint = "https://telemetry.certly.io";
+        private static readonly string endpoint = "https://telemetry.certly.io";
 
-        private static bool hasConnection;
+        private static readonly bool hasConnection;
 
         static Telemetry()
         {
@@ -30,21 +27,22 @@ namespace CScan
 
             Console.WriteLine("Submitting telemetry for " + key);
 
-            WebRequest request = WebRequest.Create(endpoint + "/submit");
+            var request = WebRequest.Create(endpoint + "/submit");
 
-            ((HttpWebRequest)request).UserAgent = Main.name + "|" + System.Environment.OSVersion.Version;
+            ((HttpWebRequest) request).UserAgent = Main.name + "|" + Environment.OSVersion.Version;
             request.Method = "POST";
             request.ContentType = "application/json";
 
-            Dictionary<string, string> body = new Dictionary<string, string>() {
-                { "key", key },
-                { "value", value },
+            var body = new Dictionary<string, string>
+            {
+                {"key", key},
+                {"value", value}
             };
 
-            Stream dataStream = request.GetRequestStream();
-            string json = JsonConvert.SerializeObject(body);
+            var dataStream = request.GetRequestStream();
+            var json = JsonConvert.SerializeObject(body);
 
-            byte[] jsonBytes = Encoding.ASCII.GetBytes(json);
+            var jsonBytes = Encoding.ASCII.GetBytes(json);
 
             dataStream.Write(jsonBytes, 0, jsonBytes.Length);
             dataStream.Close();

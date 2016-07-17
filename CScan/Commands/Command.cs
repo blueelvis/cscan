@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CScan.Commands
 {
-    interface Command
+    internal interface Command
     {
         List<Dictionary<string, string>> Run(List<Dictionary<string, string>> list, string[] arguments);
     }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 namespace CScan.Components
 {
-    class Signatures : Component
+    internal class Signatures : Component
     {
         public string[] files =
         {
@@ -19,19 +15,25 @@ namespace CScan.Components
             @"C:\Windows\System32\Drivers\volsnap.sys",
             @"C:\Windows\System32\User32.dll",
             @"C:\Windows\System32\dllhost.exe",
-            System.Reflection.Assembly.GetExecutingAssembly().Location,
+            Assembly.GetExecutingAssembly().Location
         };
 
-        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            foreach (string file in files)
+            foreach (var file in files)
             {
-                bool exists = File.Exists(file);
+                var exists = File.Exists(file);
 
-                list.Add(new Dictionary<string, string>() {
-                    { "token", "Sig" },
-                    { "file", file },
-                    { "signed", exists ? !Authenticode.IsSigned(file, true) ? "[b]is not signed[/b]" : "is signed" : "[b]does not exist[/b]" },
+                list.Add(new Dictionary<string, string>
+                {
+                    {"token", "Sig"},
+                    {"file", file},
+                    {
+                        "signed",
+                        exists
+                            ? !Authenticode.IsSigned(file, true) ? "[b]is not signed[/b]" : "is signed"
+                            : "[b]does not exist[/b]"
+                    }
                 });
             }
 

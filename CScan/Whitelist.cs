@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace CScan
 {
-    class Whitelist
+    internal class Whitelist
     {
-        private static string[] hashes = {
-            
+        private static readonly string[] hashes =
+        {
         };
 
-        private static Dictionary<string, bool> hashCache = new Dictionary<string, bool>();
+        private static readonly Dictionary<string, bool> hashCache = new Dictionary<string, bool>();
 
-        private static SHA256 hasher = SHA256Managed.Create();
+        private static readonly SHA256 hasher = SHA256.Create();
 
         public bool IsFileWhitelisted(string path)
         {
@@ -25,10 +22,10 @@ namespace CScan
                 return hashCache[path];
             }
 
-            FileStream file = OpenFile(path);
-            string hash = hasher.ComputeHash(file).ToString();
+            var file = OpenFile(path);
+            var hash = hasher.ComputeHash(file).ToString();
 
-            bool result = hashes.Contains(hash);
+            var result = hashes.Contains(hash);
 
             hashCache[path] = result;
 

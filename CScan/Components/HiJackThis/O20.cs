@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.Components.HiJackThis
 {
-    class O20 : Component
+    internal class O20 : Component
     {
-        public bool Run(ref CScan.Report report, List<Dictionary<string, string>> list)
+        public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            using (Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion\Windows"))
+            using (var key = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion\Windows"))
             {
-                string value = (string) key.GetValue("AppInit_DLLs");
+                var value = (string) key.GetValue("AppInit_DLLs");
 
                 if (value != "")
                 {
-                    list.Add(new Dictionary<string, string>() {
-                        { "token", "O20" },
-                        { "value", value },
+                    list.Add(new Dictionary<string, string>
+                    {
+                        {"token", "O20"},
+                        {"value", value}
                     });
 
                     report.Add(list);
