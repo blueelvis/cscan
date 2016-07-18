@@ -13,7 +13,7 @@ namespace CScan.Components
                 {
                     list.Add(new Dictionary<string, string>
                     {
-                        {"token", "Dsk"},
+                        {"token", "Disk"},
                         {"name", drive.Name},
                         {"label", drive.VolumeLabel}
                     });
