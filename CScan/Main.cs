@@ -25,20 +25,26 @@ namespace CScan
 
         private void Scan_Click(object sender, EventArgs e)
         {
+            Scan.Enabled = false;
+
             statusText.Text = "";
 
             var scanner = new Scanner();
-
             scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text, enableJson.Checked);
+
+            Scan.Enabled = true;
         }
 
         private void Fix_Click(object sender, EventArgs e)
         {
+            Fix.Enabled = false;
+
             statusText.Text = "";
 
             var fixer = new Fixer();
-
             fixer.Fix(ref statusText);
+
+            Fix.Enabled = true;
         }
     }
 }
