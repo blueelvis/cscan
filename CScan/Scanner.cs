@@ -36,7 +36,7 @@ namespace CScan
             InitializeComponents();
         }
 
-        public void Scan(ref RichTextBox status, string encryptionKey = null)
+        public void Scan(ref RichTextBox status, string encryptionKey = null, bool json = false)
         {
             var report = new Report();
 
@@ -61,10 +61,11 @@ namespace CScan
                     //
                 }
             }
+            
+            var path = report.WriteToFile(encryptionKey, json);
 
-            var path = report.WriteToFile(encryptionKey);
-
-            Process.Start("notepad.exe", path);
+            if (!json)
+                Process.Start("notepad.exe", path);
 
             status.Text = status.Text + "Success!";
         }

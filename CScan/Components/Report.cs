@@ -24,36 +24,44 @@ namespace CScan
             lines.Add(new Dictionary<string, string>());
         }
 
-        public string WriteToFile(string externalKey = null)
+        public string WriteToFile(string externalKey = null, bool json = false)
         {
             var homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
 
             var path = homeDirectory + "\\Desktop\\" + Main.name + ".txt";
 
-            File.WriteAllText(path, ToString(externalKey));
+            var report = ToString(externalKey, json);
+
+            File.WriteAllText(path, report);
 
             return path;
         }
 
-        public string ToString(string externalKey = null)
+        public string ToString(string externalKey = null, bool json = false)
         {
-            var output = "";
+            string output = "";
 
-            foreach (var line in lines)
+            if (!json)
             {
-                foreach (var list in line)
+                foreach (var line in lines)
                 {
-                    if (list.Key != "token" && list.Value != null)
+                    foreach (var list in line)
                     {
-                        output = output + list.Value + " ";
+                        if (list.Key != "token" && list.Value != null)
+                        {
+                            output = output + list.Value + " ";
+                        }
+                        else if (list.Value != null)
+                        {
+                            output = output + list.Value + ": ";
+                        }
                     }
-                    else if (list.Value != null)
-                    {
-                        output = output + list.Value + ": ";
-                    }
-                }
 
-                output = output + Environment.NewLine;
+                    output = output + Environment.NewLine;
+                }
+            } else
+            {
+                output = ToJson();
             }
 
             if (externalKey != null)

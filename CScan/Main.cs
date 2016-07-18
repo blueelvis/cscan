@@ -27,7 +27,7 @@ namespace CScan
         {
             var scanner = new Scanner();
 
-            scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text);
+            scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text, enableJson.Checked);
         }
 
         private void Fix_Click(object sender, EventArgs e)
