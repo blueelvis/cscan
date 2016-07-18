@@ -25,6 +25,8 @@ namespace CScan
 
         private void Scan_Click(object sender, EventArgs e)
         {
+            statusText.Text = "";
+
             var scanner = new Scanner();
 
             scanner.Scan(ref statusText, encryptionKey.Text == "Optional Encryption Key" ? null : encryptionKey.Text, enableJson.Checked);
@@ -32,6 +34,8 @@ namespace CScan
 
         private void Fix_Click(object sender, EventArgs e)
         {
+            statusText.Text = "";
+
             var fixer = new Fixer();
 
             fixer.Fix(ref statusText);
