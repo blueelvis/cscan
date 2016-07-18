@@ -23,7 +23,7 @@ namespace CScan.Components
                     list.Add(
                         new Dictionary<string, string>
                         {
-                            {"token", "Shl"},
+                            {"token", "Shell"},
                             {"key", @"HKLM\..\Winlogon: [Shell]"},
                             {"value", shell}
                         }
@@ -35,7 +35,7 @@ namespace CScan.Components
                     list.Add(
                         new Dictionary<string, string>
                         {
-                            {"token", "Shl"},
+                            {"token", "Shell"},
                             {"key", @"HKLM\..\Winlogon: [Userinit]"},
                             {"value", userinit}
                         }

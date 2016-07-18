@@ -30,7 +30,7 @@ namespace CScan.Components
         {
             list.Add(new Dictionary<string, string>
             {
-                {"token", "Int"},
+                {"token", "Integrity"},
                 {"key", hive + @"\..\" + subKey + ": [" + valueName + "]"},
                 {"value", value}
             });
