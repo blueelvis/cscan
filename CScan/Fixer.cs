@@ -147,7 +147,7 @@ namespace CScan
 
             list.Add(new Dictionary<string, string>
             {
-                {"raw", Main.name + " Version " + Main.version}
+                {"raw", Main.name + " Version " + Main.version + " (Fix Log)"}
             });
 
             var ci = CultureInfo.InstalledUICulture;
