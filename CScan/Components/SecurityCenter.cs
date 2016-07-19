@@ -42,7 +42,7 @@ namespace CScan.Components
 
         public bool IsActive(string productStateHex)
         {
-            return productStateHex.Substring(2, 3) == "1";
+            return productStateHex.Substring(1, 1) == "1";
         }
     }
 }
