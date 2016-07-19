@@ -22,7 +22,7 @@ namespace CScan
 
         private List<string> lineBuffer = new List<string>();
 
-        private List<List<Dictionary<string, string>>> results = new List<List<Dictionary<string, string>>>();
+        private List<List<List<Dictionary<string, string>>>> results = new List<List<List<Dictionary<string, string>>>>();
 
         public void Fix(ref RichTextBox richTextBox, string fileName = null)
         {
@@ -55,6 +55,21 @@ namespace CScan
                 RunSection();
         }
 
+        public override string ToString()
+        {
+            var s = "";
+
+            foreach (List<List<Dictionary<string, string>>> section in results)
+            {
+                foreach (List<Dictionary<string, string>> line in section)
+                {
+                    //
+                }
+            }
+
+            return s;
+        }
+
         private void ProcessLine(string line)
         {
             if (line.Substring(0, 1) == ":")
@@ -79,7 +94,7 @@ namespace CScan
             status.Text = status.Text + "Processing " + currentSection.Substring(0, 1).ToUpper() + currentSection.Substring(1) + "." + Environment.NewLine;
 
             var command = ResolveCommand(commands[currentSection]);
-            results.Add(command.Run(lineBuffer, new List<Dictionary<string, string>>()));
+            results.Add(command.Run(lineBuffer, new List<List<Dictionary<string, string>>>()));
 
             currentSection = null;
             lineBuffer.Clear();

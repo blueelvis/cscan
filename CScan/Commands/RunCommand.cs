@@ -4,7 +4,7 @@ namespace CScan.Commands
 {
     internal class RunCommand : ICommand
     {
-        public List<Dictionary<string, string>> Run(List<string> arguments, List<Dictionary<string, string>> list)
+        public List<List<Dictionary<string, string>>> Run(List<string> arguments, List<List<Dictionary<string, string>>> list)
         {
             return list;
         }
