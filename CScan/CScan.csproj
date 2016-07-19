@@ -102,7 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\RunCommand.cs" />
     <Compile Include="Authenticode.cs" />
     <Compile Include="Components\Environment.cs" />
@@ -128,7 +128,7 @@
     <Compile Include="Components\Header.cs" />
     <Compile Include="Components\Report.cs" />
     <Compile Include="Components\RegistryRun.cs" />
-    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\IComponent.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>

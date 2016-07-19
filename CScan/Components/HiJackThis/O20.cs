@@ -3,7 +3,7 @@ using Microsoft.Win32;
 
 namespace CScan.Components.HiJackThis
 {
-    internal class O20 : Component
+    internal class O20 : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

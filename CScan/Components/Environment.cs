@@ -2,7 +2,7 @@
 
 namespace CScan.Components
 {
-    internal class Environment : Component
+    internal class Environment : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

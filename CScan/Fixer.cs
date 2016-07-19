@@ -13,10 +13,16 @@ namespace CScan
         public static Dictionary<string, string> commands = new Dictionary<string, string>
         {
             // Command => Class
-            {"Run", "RunCommand"}
+            {"run", "RunCommand"}
         };
 
         private RichTextBox status;
+
+        private string currentSection;
+
+        private List<string> lineBuffer = new List<string>();
+
+        private List<List<Dictionary<string, string>>> results = new List<List<Dictionary<string, string>>>();
 
         public void Fix(ref RichTextBox richTextBox, string fileName = null)
         {
@@ -24,7 +30,7 @@ namespace CScan
 
             if (fileName == null)
             {
-                fileName = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Desktop\\" + "fix.txt";
+                fileName = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop\fix.txt";
             }
 
             if (!File.Exists(fileName))
@@ -44,37 +50,54 @@ namespace CScan
 
                 ProcessLine(cleanLine);
             }
+
+            if (currentSection != null && lineBuffer.Count > 0)
+                RunSection();
         }
 
         private void ProcessLine(string line)
         {
-            var parts = line.Split(' ');
-
-            var command = line[0].ToString();
-
-            if (!commands.ContainsKey(command))
+            if (line.Substring(0, 1) == ":")
             {
-                ExecuteProcess(string.Join(" ", parts));
-                return;
+                HandleSection(line.Substring(1).ToLower());
+            } else
+            {
+                HandleEntry(line);
             }
-
-            var resolvedCommand = ResolveCommand(commands[command]);
-
-            var arguments = parts.Where((source, index) => index != 0).ToArray();
-
-            resolvedCommand.Run(new List<Dictionary<string, string>>(), arguments);
         }
 
-        private void ExecuteProcess(string command)
+        private void HandleSection(string command)
         {
-            Process.Start("cmd", "/c " + command);
+            if (currentSection != null && lineBuffer.Count > 0)
+                RunSection();
+
+            currentSection = command;
         }
 
-        private Command ResolveCommand(string command)
+        private void RunSection()
+        {
+            status.Text = status.Text + "Processing " + currentSection.Substring(0, 1).ToUpper() + currentSection.Substring(1) + "." + Environment.NewLine;
+
+            var command = ResolveCommand(commands[currentSection]);
+            results.Add(command.Run(lineBuffer, new List<Dictionary<string, string>>()));
+
+            currentSection = null;
+            lineBuffer.Clear();
+        }
+
+        private void HandleEntry(string line)
+        {
+            if (currentSection == null)
+                throw new InvalidDataException("An entry was passed outside of a section.");
+
+            lineBuffer.Add(line);
+        }
+
+        private ICommand ResolveCommand(string command)
         {
             var t = Type.GetType("CScan.Commands." + command);
 
-            return (Command) Activator.CreateInstance(t);
+            return (ICommand) Activator.CreateInstance(t);
         }
     }
 }

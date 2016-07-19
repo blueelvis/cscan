@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace CScan.Components
 {
-    internal class Signatures : Component
+    internal class Signatures : IComponent
     {
         public string[] files =
         {

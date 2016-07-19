@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CScan.Components
 {
-    internal class Disks : Component
+    internal class Disks : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

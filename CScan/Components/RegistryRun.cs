@@ -3,7 +3,7 @@ using Microsoft.Win32;
 
 namespace CScan.Components
 {
-    internal class RegistryRun : Component
+    internal class RegistryRun : IComponent
     {
         protected string RunKey = @"Software\Microsoft\Windows\CurrentVersion\Run";
 

@@ -29,7 +29,7 @@ namespace CScan
             "Programs"
         };
 
-        protected List<Component> initializedComponents = new List<Component>();
+        protected List<IComponent> initializedComponents = new List<IComponent>();
 
         public Scanner()
         {
@@ -76,7 +76,7 @@ namespace CScan
             {
                 var t = Type.GetType("CScan.Components." + component);
 
-                var initializedComponent = (Component) Activator.CreateInstance(t);
+                var initializedComponent = (IComponent) Activator.CreateInstance(t);
 
                 initializedComponents.Add(initializedComponent);
             }

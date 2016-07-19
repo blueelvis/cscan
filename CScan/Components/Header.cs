@@ -7,7 +7,7 @@ using Microsoft.VisualBasic.Devices;
 
 namespace CScan.Components
 {
-    internal class Header : Component
+    internal class Header : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

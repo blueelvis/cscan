@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace CScan.Components
 {
-    internal class Processes : Component
+    internal class Processes : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

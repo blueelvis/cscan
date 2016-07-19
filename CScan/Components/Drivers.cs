@@ -4,7 +4,7 @@ using System.Management;
 
 namespace CScan.Components
 {
-    internal class Drivers : Component
+    internal class Drivers : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

@@ -3,7 +3,7 @@ using Microsoft.Win32;
 
 namespace CScan.Components
 {
-    internal class IEProxy : Component
+    internal class IEProxy : IComponent
     {
         public bool Run(ref Report report, List<Dictionary<string, string>> list)
         {

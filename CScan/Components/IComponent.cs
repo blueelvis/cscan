@@ -2,7 +2,7 @@
 
 namespace CScan.Components
 {
-    internal interface Component
+    internal interface IComponent
     {
         bool Run(ref Report report, List<Dictionary<string, string>> line);
     }
