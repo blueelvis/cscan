@@ -42,7 +42,14 @@ namespace CScan
             statusText.Text = "";
 
             var fixer = new Fixer();
-            fixer.Fix(ref statusText);
+            string path;
+
+            try
+            {
+                path = fixer.Fix(ref statusText);
+            } catch (System.IO.InvalidDataException) { return; }
+
+            Process.Start("notepad", path);
 
             Fix.Enabled = true;
         }

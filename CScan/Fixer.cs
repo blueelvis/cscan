@@ -16,15 +16,17 @@ namespace CScan
             {"run", "RunCommand"}
         };
 
+        public string fixLogPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Desktop\CScan Fix.txt";
+
         private RichTextBox status;
 
         private string currentSection;
 
         private List<string> lineBuffer = new List<string>();
 
-        private List<List<List<Dictionary<string, string>>>> results = new List<List<List<Dictionary<string, string>>>>();
+        private List<List<Dictionary<string, string>>> results = new List<List<Dictionary<string, string>>>();
 
-        public void Fix(ref RichTextBox richTextBox, string fileName = null)
+        public string Fix(ref RichTextBox richTextBox, string fileName = null)
         {
             status = richTextBox;
 
@@ -36,7 +38,8 @@ namespace CScan
             if (!File.Exists(fileName))
             {
                 richTextBox.Text = "Fix file does not exist!";
-                return;
+
+                throw new InvalidDataException("Fix file does not exist.");
             }
 
             var contents = File.ReadAllLines(fileName);
@@ -53,17 +56,30 @@ namespace CScan
 
             if (currentSection != null && lineBuffer.Count > 0)
                 RunSection();
+
+            File.WriteAllText(fixLogPath, ToString().Trim());
+
+            return fixLogPath;
         }
 
         public override string ToString()
         {
             var s = "";
 
-            foreach (List<List<Dictionary<string, string>>> section in results)
+            foreach (List<Dictionary<string, string>> section in results)
             {
-                foreach (List<Dictionary<string, string>> line in section)
+                foreach (Dictionary<string, string> line in section)
                 {
-                    //
+                    foreach (KeyValuePair<string, string> component in line)
+                    {
+                        if (component.Key == "token")
+                        {
+                            s = s + Environment.NewLine + component.Value + ":";
+                            continue;
+                        }
+
+                        s = s + " " + component.Value;
+                    }
                 }
             }
 
@@ -94,7 +110,7 @@ namespace CScan
             status.Text = status.Text + "Processing " + currentSection.Substring(0, 1).ToUpper() + currentSection.Substring(1) + "." + Environment.NewLine;
 
             var command = ResolveCommand(commands[currentSection]);
-            results.Add(command.Run(lineBuffer, new List<List<Dictionary<string, string>>>()));
+            results.Add(command.Run(lineBuffer, new List<Dictionary<string, string>>()));
 
             currentSection = null;
             lineBuffer.Clear();
