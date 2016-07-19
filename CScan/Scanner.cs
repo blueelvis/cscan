@@ -19,6 +19,7 @@ namespace CScan
             "Processes",
             "Environment",
             "Shell",
+            "IFEO",
             "RegistryRun",
             "HiJackThis.O20",
             "HiJackThis.O21",

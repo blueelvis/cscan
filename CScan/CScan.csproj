@@ -115,6 +115,7 @@
     <Compile Include="Components\DisabledApplications.cs" />
     <Compile Include="Components\Hosts.cs" />
     <Compile Include="Components\Programs.cs" />
+    <Compile Include="Components\IFEO.cs" />
     <Compile Include="Components\SecurityCenter.cs" />
     <Compile Include="Components\Shell.cs" />
     <Compile Include="Telemetry.cs" />
