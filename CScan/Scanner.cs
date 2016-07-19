@@ -13,7 +13,7 @@ namespace CScan
         protected string[] components =
         {
             "Header",
-            "WMI",
+            "SecurityCenter",
             "DisabledApplications",
             "IEProxy",
             "Processes",
