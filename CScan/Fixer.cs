@@ -5,6 +5,10 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CScan.Commands;
+using System.Globalization;
+using System.Security.Principal;
+using System.Reflection;
+using Microsoft.VisualBasic.Devices;
 
 namespace CScan
 {
@@ -44,6 +48,8 @@ namespace CScan
 
             var contents = File.ReadAllLines(fileName);
 
+            AddHeader();
+
             foreach (var line in contents)
             {
                 var cleanLine = line.Trim();
@@ -70,17 +76,21 @@ namespace CScan
             {
                 foreach (Dictionary<string, string> line in section)
                 {
+                    s = s + Environment.NewLine;
+
                     foreach (KeyValuePair<string, string> component in line)
                     {
                         if (component.Key == "token")
                         {
-                            s = s + Environment.NewLine + component.Value + ":";
+                            s = s + component.Value + ": ";
                             continue;
                         }
 
-                        s = s + " " + component.Value;
+                        s = s + component.Value + " ";
                     }
                 }
+
+                s = s + Environment.NewLine;
             }
 
             return s;
@@ -129,6 +139,48 @@ namespace CScan
             var t = Type.GetType("CScan.Commands." + command);
 
             return (ICommand) Activator.CreateInstance(t);
+        }
+
+        private void AddHeader()
+        {
+            var list = new List<Dictionary<string, string>>();
+
+            list.Add(new Dictionary<string, string>
+            {
+                {"raw", Main.name + " Version " + Main.version}
+            });
+
+            var ci = CultureInfo.InstalledUICulture;
+
+            list.Add(new Dictionary<string, string>
+            {
+                {
+                    "raw",
+                    "Running from " + Assembly.GetExecutingAssembly().Location.Substring(0, 3) + " as " +
+                    WindowsIdentity.GetCurrent().Name + " on " + DateTime.Now
+                }
+            });
+
+            list.Add(new Dictionary<string, string>
+            {
+                {"raw", "Windows Version " + System.Environment.OSVersion.Version + " Language " + ci.EnglishName}
+            });
+
+            double totalMemory = new ComputerInfo().TotalPhysicalMemory;
+            totalMemory = totalMemory / 1000000000;
+
+            double freeMemory = new ComputerInfo().AvailablePhysicalMemory;
+            freeMemory = freeMemory / 1000000000;
+
+            list.Add(new Dictionary<string, string>
+            {
+                {
+                    "raw",
+                    totalMemory.ToString("N1") + "GB RAM installed; " + freeMemory.ToString("N1") + "GB RAM available"
+                }
+            });
+
+            results.Add(list);
         }
     }
 }
