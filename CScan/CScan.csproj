@@ -125,7 +125,6 @@
     <Compile Include="Components\Shell.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="FileInspector.cs" />
-    <Compile Include="Telemetry.cs" />
     <Compile Include="Fixer.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

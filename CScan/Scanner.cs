@@ -58,15 +58,6 @@ namespace CScan
                 component.Run(ref report, new List<Dictionary<string, string>>());
 
                 watch.Stop();
-
-                try
-                {
-                    Telemetry.Point("Component." + componentName, watch.ElapsedMilliseconds.ToString());
-                }
-                catch (WebException)
-                {
-                    //
-                }
             }
 
             var path = report.WriteToFile(config.EncryptionKey, config.EnableJson);
