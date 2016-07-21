@@ -1,0 +1,31 @@
+platform: 
+  - x64
+  - Any CPU
+
+configuration: Release
+
+matrix:
+  fast_finish: true
+
+before_build: nuget restore CScan.sln
+
+build_script: msbuild CScan.sln /m /p:OutDir=%cd% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+after_build: copy "Certly Scan.exe" "Certly Scan %PLATFORM%.exe"
+
+artifacts:
+  - path: 'Certly Scan Any CPU.exe'
+    name: x86
+  - path: 'Certly Scan x64.exe'
+    name: x64
+
+deploy:
+  - provider: S3
+    access_key_id:
+      secure: oSL/bVM6aD2QejrnJMKsTGPPXAB5jU0bMLGuEgNnfxg=
+    secret_access_key:
+      secure: fGDxZdgn9NxmLJvlzJvghhigOTIzr5zHxpFkt9WU9LvaAxSVPqMKxF44F0WLFmFh
+    bucket: cscan
+    folder: bin
+    artifact: x86,x64
+    set_public: true
