@@ -11,21 +11,13 @@ namespace CScan.Components.Browser
 {
     internal class Firefox : IComponent
     {
-        private struct Manifest
-        {
-            public Addon[] addons;
-        }
-
-        private struct Addon
-        {
-            public string version;
-            public Dictionary<string, string> defaultLocale;
-        }
-
         private readonly string path = System.Environment.GetEnvironmentVariable("USERPROFILE") + @"\AppData\Roaming\Mozilla\Firefox";
 
         public void Run(ref Report report, List<Dictionary<string, string>> list)
         {
+            if (!Directory.Exists(path))
+                return;
+
             foreach (string profile in Directory.GetDirectories(path + @"\Profiles"))
             {
                 if (!File.Exists(profile + @"\extensions.json"))

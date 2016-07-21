@@ -14,6 +14,12 @@ namespace CScan.Components.Browser
         {
             public string name;
             public string version;
+
+            public Manifest(string name, string version)
+            {
+                this.name = name;
+                this.version = version;
+            }
         }
 
         private readonly string path = System.Environment.GetEnvironmentVariable("USERPROFILE") + @"\AppData\Local\Google\Chrome\User Data";
