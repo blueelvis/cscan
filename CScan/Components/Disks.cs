@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Management;
 
 namespace CScan.Components
 {
@@ -7,30 +10,21 @@ namespace CScan.Components
     {
         public void Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            foreach (var drive in DriveInfo.GetDrives())
+            var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_LogicalDisk");
+
+            foreach (ManagementObject drive in searcher.Get())
             {
-                try
+                var caption = drive.GetPropertyValue("Caption").ToString();
+
+                list.Add(new Dictionary<string, string>
                 {
-                    list.Add(new Dictionary<string, string>
-                    {
-                        {"token", "Disk"},
-                        {"name", drive.Name},
-                        {"label", drive.VolumeLabel},
-                        {"format", "[" + drive.DriveFormat + "]"}
-                    });
-                }
-                catch (IOException)
-                {
-                    //
-                }
+                    {"token", "Disk"},
+                    {"caption", caption},
+                    {"format", "[" + drive.GetPropertyValue("FileSystem") + "]"}
+                });
             }
 
             report.Add(list);
-        }
-
-        private string BytesToGB(double bytes)
-        {
-            return bytes/1000000000 + " GB";
         }
     }
 }
