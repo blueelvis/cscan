@@ -7,4 +7,4 @@ Certly Scan (or CScan) is a general-purpose scanning and repair tool for Windows
 
 CScan supports Windows 7 and up, and may not function correctly on older systems.
 
-It is currently under active development and lacks many features that may be needed in order to effectively detect and remove malware. CScan is not intended to run on a hostile system; malware can prevent it from executing and, in the case of rootkits, feed it false data. Tools like RKill and RougeKiller can be used to halt malware.
+It is currently under active development and lacks many features that may be needed in order to effectively detect and remove malware. CScan is not intended to run on a hostile system; malware can prevent it from executing and, in the case of rootkits, feed it false data. Tools like RKill and RogueKiller can be used to halt malware.
