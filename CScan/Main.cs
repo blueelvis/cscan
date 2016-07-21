@@ -60,6 +60,8 @@ namespace CScan
             }
             catch (InvalidDataException)
             {
+                EnableButtons();
+
                 return;
             }
 
