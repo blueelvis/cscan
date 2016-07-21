@@ -26,6 +26,9 @@ namespace CScan.Components.Browser
 
         public void Run(ref Report report, List<Dictionary<string, string>> list)
         {
+            if (!Directory.Exists(path))
+                return;
+
             foreach (string directory in Directory.GetDirectories(path))
             {
                 if (!Directory.Exists(directory + @"\Extensions"))
