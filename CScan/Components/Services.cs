@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.ServiceProcess;
 using Microsoft.Win32;
 

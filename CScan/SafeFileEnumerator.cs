@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CScan
 {
     public static class SafeFileEnumerator
     {
-        public static IEnumerable<string> EnumerateDirectories(string parentDirectory, string searchPattern, SearchOption searchOpt)
+        public static IEnumerable<string> EnumerateDirectories(string parentDirectory, string searchPattern,
+            SearchOption searchOpt)
         {
             try
             {
@@ -35,7 +34,7 @@ namespace CScan
                 if (searchOpt == SearchOption.AllDirectories)
                 {
                     dirFiles = Directory.EnumerateDirectories(path)
-                                        .SelectMany(x => EnumerateFiles(x, searchPattern, searchOpt));
+                        .SelectMany(x => EnumerateFiles(x, searchPattern, searchOpt));
                 }
                 return dirFiles.Concat(Directory.EnumerateFiles(path, searchPattern));
             }

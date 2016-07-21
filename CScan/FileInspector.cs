@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CScan
 {
@@ -15,10 +12,10 @@ namespace CScan
         {
             var hasher = new SHA256Managed();
 
-            using (FileStream stream = File.OpenRead(filePath))
+            using (var stream = File.OpenRead(filePath))
             {
-                byte[] hash = hasher.ComputeHash(stream);
-                string hashString = BitConverter.ToString(hash).Replace("-", string.Empty);
+                var hash = hasher.ComputeHash(stream);
+                var hashString = BitConverter.ToString(hash).Replace("-", string.Empty);
 
                 return hashString;
             }
@@ -39,14 +36,14 @@ namespace CScan
 
         public static IEnumerable<string> GetFiles(string path)
         {
-            Queue<string> queue = new Queue<string>();
+            var queue = new Queue<string>();
             queue.Enqueue(path);
             while (queue.Count > 0)
             {
                 path = queue.Dequeue();
                 try
                 {
-                    foreach (string subDir in Directory.GetDirectories(path))
+                    foreach (var subDir in Directory.GetDirectories(path))
                     {
                         queue.Enqueue(subDir);
                     }
@@ -66,7 +63,7 @@ namespace CScan
                 }
                 if (files != null)
                 {
-                    for (int i = 0; i < files.Length; i++)
+                    for (var i = 0; i < files.Length; i++)
                     {
                         yield return files[i];
                     }

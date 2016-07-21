@@ -1,8 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using Microsoft.Win32;
-using System;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -10,35 +6,24 @@ namespace CScan.Components.Browser
 {
     internal class Chrome : IComponent
     {
-        private struct Manifest
-        {
-            public string name;
-            public string version;
-
-            public Manifest(string name, string version)
-            {
-                this.name = name;
-                this.version = version;
-            }
-        }
-
-        private readonly string path = System.Environment.GetEnvironmentVariable("USERPROFILE") + @"\AppData\Local\Google\Chrome\User Data";
+        private readonly string path = System.Environment.GetEnvironmentVariable("USERPROFILE") +
+                                       @"\AppData\Local\Google\Chrome\User Data";
 
         public void Run(ref Report report, List<Dictionary<string, string>> list)
         {
             if (!Directory.Exists(path))
                 return;
 
-            foreach (string directory in Directory.GetDirectories(path))
+            foreach (var directory in Directory.GetDirectories(path))
             {
                 if (!Directory.Exists(directory + @"\Extensions"))
                     continue;
 
-                foreach (string extension in Directory.GetDirectories(directory + @"\Extensions"))
+                foreach (var extension in Directory.GetDirectories(directory + @"\Extensions"))
                 {
-                    string name = Path.GetFileName(extension.TrimEnd(Path.DirectorySeparatorChar));
-                    string friendly = GetFriendlyName(extension);
-                    string version = GetVersion(extension);
+                    var name = Path.GetFileName(extension.TrimEnd(Path.DirectorySeparatorChar));
+                    var friendly = GetFriendlyName(extension);
+                    var version = GetVersion(extension);
 
                     if (friendly.StartsWith("__"))
                         continue;
@@ -48,7 +33,7 @@ namespace CScan.Components.Browser
                         {"token", "Chrome"},
                         {"friendly", friendly},
                         {"version", "(" + version + ")" + " -"},
-                        {"name", name},
+                        {"name", name}
                     });
                 }
             }
@@ -81,6 +66,18 @@ namespace CScan.Components.Browser
             var manifestObj = JsonConvert.DeserializeObject<Manifest>(manifest);
 
             return manifestObj;
+        }
+
+        private struct Manifest
+        {
+            public readonly string name;
+            public readonly string version;
+
+            public Manifest(string name, string version)
+            {
+                this.name = name;
+                this.version = version;
+            }
         }
     }
 }

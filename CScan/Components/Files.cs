@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
-using Microsoft.Win32;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace CScan.Components
@@ -13,7 +10,7 @@ namespace CScan.Components
         {
             @"C:\Users",
             @"C:\Program Files",
-            @"C:\Program Files (x86)",
+            @"C:\Program Files (x86)"
         };
 
         public void Run(ref Report report, List<Dictionary<string, string>> list)
@@ -23,12 +20,12 @@ namespace CScan.Components
                 if (!Directory.Exists(directory))
                     continue;
 
-                foreach (string file in SafeFileEnumerator.EnumerateFiles(directory, "*.exe", SearchOption.AllDirectories))
+                foreach (var file in SafeFileEnumerator.EnumerateFiles(directory, "*.exe", SearchOption.AllDirectories))
                 {
                     if (file.Length > 248)
                         continue;
 
-                    DateTime fileDate = FileInspector.GetDate(file);
+                    var fileDate = FileInspector.GetDate(file);
 
                     if ((fileDate - DateTime.Now).TotalDays > 14)
                         continue;

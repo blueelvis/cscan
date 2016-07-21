@@ -29,7 +29,6 @@ namespace CScan.Components.HiJackThis
                         {"dll", string.IsNullOrEmpty(dll) ? "(file not found)" : dll}
                     });
 
-                    
 
                     hasEntries = true;
                 }

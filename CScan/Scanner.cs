@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Windows.Forms;
 using CScan.Components;
 using Environment = System.Environment;
@@ -32,7 +31,7 @@ namespace CScan
             "Disks",
             "Signatures",
             "Programs",
-            "Files",
+            "Files"
         };
 
         protected List<IComponent> initializedComponents = new List<IComponent>();

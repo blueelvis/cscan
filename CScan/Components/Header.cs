@@ -4,8 +4,6 @@ using System.Globalization;
 using System.Management;
 using System.Reflection;
 using System.Security.Principal;
-using Microsoft.VisualBasic.Devices;
-using System.Runtime.InteropServices;
 
 namespace CScan.Components
 {
@@ -34,10 +32,10 @@ namespace CScan.Components
                 {"raw", "Windows Version " + WmiQuery("Version") + " Language " + ci.EnglishName}
             });
 
-            int totalMemory = (int) Math.Round(double.Parse(WmiQuery("TotalVisibleMemorySize")));
+            var totalMemory = (int) Math.Round(double.Parse(WmiQuery("TotalVisibleMemorySize")));
             totalMemory = totalMemory/1000000;
 
-            double freeMemory = double.Parse(WmiQuery("FreePhysicalMemory"));
+            var freeMemory = double.Parse(WmiQuery("FreePhysicalMemory"));
             freeMemory = freeMemory/1000000;
 
             list.Add(new Dictionary<string, string>

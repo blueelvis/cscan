@@ -74,7 +74,7 @@ namespace CScan
         {
             if (!allowUnsafeOperationsToolStripMenuItem.Checked)
             {
-                DialogResult result = MessageBox.Show(
+                var result = MessageBox.Show(
                     "Allowing unsafe operations may cause serious damage. Do not enable this unless explicitly instructed to."
                     + Environment.NewLine + Environment.NewLine + "Are you sure you wish to enable unsafe operations?",
                     "Warning!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -82,7 +82,7 @@ namespace CScan
                 if (result == DialogResult.No)
                     return;
             }
-            
+
             allowUnsafeOperationsToolStripMenuItem.Checked = !allowUnsafeOperationsToolStripMenuItem.Checked;
         }
 

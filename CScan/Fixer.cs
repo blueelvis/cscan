@@ -18,14 +18,14 @@ namespace CScan
             {"run", "RunCommand"}
         };
 
+        private readonly List<string> lineBuffer = new List<string>();
+
+        private readonly List<List<Dictionary<string, string>>> results = new List<List<Dictionary<string, string>>>();
+
         private string currentSection;
 
         public string fixLogPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                    @"\Desktop\CScan Fix.txt";
-
-        private readonly List<string> lineBuffer = new List<string>();
-
-        private readonly List<List<Dictionary<string, string>>> results = new List<List<Dictionary<string, string>>>();
 
         private RichTextBox status;
 
