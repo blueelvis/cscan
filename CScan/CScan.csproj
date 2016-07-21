@@ -112,6 +112,7 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\RunCommand.cs" />
     <Compile Include="Authenticode.cs" />
+    <Compile Include="Components\Browser\Chrome.cs" />
     <Compile Include="Components\Environment.cs" />
     <Compile Include="Components\HiJackThis\O2.cs" />
     <Compile Include="Components\HiJackThis\O21.cs" />

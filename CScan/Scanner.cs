@@ -21,6 +21,7 @@ namespace CScan
             "Shell",
             "IFEO",
             "RegistryRun",
+            "Browser.Chrome",
             "HiJackThis.O2",
             "HiJackThis.O20",
             "HiJackThis.O21",
