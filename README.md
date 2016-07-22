@@ -1,7 +1,7 @@
 # Certly Scan
 [![Build status](https://ci.appveyor.com/api/projects/status/p638h7gctr6rebhv?svg=true)](https://ci.appveyor.com/project/IanCarroll/cscan) 
 
-[[Download x64]](https://s3-us-west-2.amazonaws.com/cscan/bin/Certly+Scan+x64.exe) [[Download x86]](https://s3-us-west-2.amazonaws.com/cscan/bin/Certly+Scan+Any+CPU.exe) [[Issues]](https://github.com/iangcarroll/cscan/issues) [[Documentation]](https://github.com/iangcarroll/cscan/wiki)
+[[Download x64]](https://s3-us-west-2.amazonaws.com/cscan/bin/Certly+Scan+x64.exe) [[Download x86]](https://s3-us-west-2.amazonaws.com/cscan/bin/Certly+Scan+x86.exe) [[Issues]](https://github.com/iangcarroll/cscan/issues) [[Documentation]](https://github.com/iangcarroll/cscan/wiki)
 
 Certly Scan (or CScan) is a general-purpose scanning and repair tool for Windows computers. It enumerates many details about the system to aid in the detection of malware and has a simple domain-specific language for specifying what should be removed from the system. Because CScan internally structures the data it collects, its logs can be made machine readable. CScan is also notably fast, generally running in 3 seconds on most computers.
 
