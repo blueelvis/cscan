@@ -25,7 +25,7 @@ namespace CScan.Components.Browser
                     var friendly = GetFriendlyName(extension);
                     var version = GetVersion(extension);
 
-                    if (friendly.StartsWith("__"))
+                    if (friendly == null || friendly.StartsWith("__"))
                         continue;
 
                     list.Add(new Dictionary<string, string>
