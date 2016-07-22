@@ -1,6 +1,6 @@
 platform: 
   - x64
-  - Any CPU
+  - x86
 
 configuration: Release
 
@@ -14,7 +14,7 @@ build_script: msbuild CScan.sln /m /p:OutDir=%cd% /logger:"C:\Program Files\AppV
 after_build: copy "Certly Scan.exe" "Certly Scan %PLATFORM%.exe"
 
 artifacts:
-  - path: 'Certly Scan Any CPU.exe'
+  - path: 'Certly Scan x86.exe'
     name: x86
   - path: 'Certly Scan x64.exe'
     name: x64
