@@ -11,24 +11,25 @@ namespace CScan.Components
 
             using (var key = Registry.LocalMachine.OpenSubKey(registryKey))
             {
-                foreach (var subKeyName in key.GetSubKeyNames())
-                {
-                    using (var subKey = key.OpenSubKey(subKeyName))
+                if (key != null)
+                    foreach (var subKeyName in key.GetSubKeyNames())
                     {
-                        var displayName = (string) subKey.GetValue("DisplayName");
-                        var hidden = subKey.GetValue("SystemComponent") != null;
-
-                        if (displayName != null)
+                        using (var subKey = key.OpenSubKey(subKeyName))
                         {
-                            list.Add(new Dictionary<string, string>
+                            var displayName = (string) subKey.GetValue("DisplayName");
+                            var hidden = subKey.GetValue("SystemComponent") != null;
+
+                            if (displayName != null)
                             {
-                                {"token", "Prg"},
-                                {"display_name", displayName},
-                                {"is_hidden", hidden ? "[b](Hidden)[/b]" : null}
-                            });
+                                list.Add(new Dictionary<string, string>
+                                {
+                                    {"token", "Prg"},
+                                    {"display_name", displayName},
+                                    {"is_hidden", hidden ? "[b](Hidden)[/b]" : null}
+                                });
+                            }
                         }
                     }
-                }
             }
 
             list.Sort((entry1, entry2) => entry1["display_name"].CompareTo(entry2["display_name"]));
