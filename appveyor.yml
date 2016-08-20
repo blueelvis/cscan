@@ -9,7 +9,7 @@ matrix:
 
 before_build: nuget restore CScan.sln
 
-build_script: msbuild CScan.sln /highentropyva+ /optimize+ /m /p:OutDir=%cd% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+build_script: msbuild CScan.sln /m /p:OutDir=%cd% /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 after_build: copy "Certly Scan.exe" "Certly Scan %PLATFORM%.exe"
 
