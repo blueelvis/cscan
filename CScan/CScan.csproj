@@ -138,8 +138,8 @@
     <Compile Include="Config.cs" />
     <Compile Include="FileInspector.cs" />
     <Compile Include="Fixer.cs" />
-    <Compile Include="Registry\Registry.cs" />
-    <Compile Include="Registry\RegistryResult.cs" />
+    <Compile Include="RegistryWrapper\RegistryWrapper.cs" />
+    <Compile Include="RegistryWrapper\RegistryResult.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
