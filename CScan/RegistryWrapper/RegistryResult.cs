@@ -7,21 +7,15 @@ using System.Threading.Tasks;
 
 namespace CScan.RegistryWrapper
 {
-    enum RegistryKeyArchitecture
-    {
-        amd64,
-        i386,
-    };
-
     struct RegistryResult
     {
         public RegistryKey key;
-        public RegistryKeyArchitecture architecture;
+        public RegistryView view;
 
-        public RegistryResult(RegistryKey key, RegistryKeyArchitecture architecture)
+        public RegistryResult(RegistryKey key, RegistryView view)
         {
             this.key = key;
-            this.architecture = architecture;
+            this.view = view;
         }
     }
 }
