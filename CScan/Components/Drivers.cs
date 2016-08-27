@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CScan.Whitelist;
+using System.Collections.Generic;
 using System.IO;
 using System.Management;
 
@@ -14,9 +15,13 @@ namespace CScan.Components
             {
                 if (entry.GetPropertyValue("PathName") != null)
                 {
-                    var path = entry.GetPropertyValue("PathName").ToString();
+                    var description = entry.GetPropertyValue("Description").ToString().Trim();
+                    var path = entry.GetPropertyValue("PathName").ToString().Trim();
 
                     var exists = File.Exists(path);
+
+                    if (DriverWhitelist.IsWhitelisted(path, description, true))
+                        continue;
 
                     list.Add(new Dictionary<string, string>
                     {
