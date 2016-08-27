@@ -15,6 +15,7 @@ namespace CScan
         public static Dictionary<string, string> commands = new Dictionary<string, string>
         {
             // Command => Class
+            {"collect", "Collect"},
             {"run", "RunCommand"}
         };
 
