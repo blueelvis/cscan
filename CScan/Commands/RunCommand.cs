@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.Commands
 {
@@ -8,11 +9,22 @@ namespace CScan.Commands
         {
             foreach (var line in arguments)
             {
-                list.Add(new Dictionary<string, string>
+                var hive = line.Substring(0, 4) == "HKCU" ? RegistryHive.CurrentUser : RegistryHive.LocalMachine;
+                var value = line.Substring(4);
+
+                foreach (
+                    var result in
+                        RegistryWrapper.RegistryWrapper.QuerySubKey(hive,
+                            @"Software\Microsoft\Windows\CurrentVersion\Run"))
                 {
-                    {"token", "Run"},
-                    {"line", line}
-                });
+                    result.key.DeleteValue(value, false);
+
+                    list.Add(new Dictionary<string, string>
+                    {
+                        {"token", "Run"},
+                        {"key", "Deleted " + value}
+                    });
+                }
             }
 
             return list;
