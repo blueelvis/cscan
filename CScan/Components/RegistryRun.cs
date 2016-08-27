@@ -57,7 +57,7 @@ namespace CScan.Components
                             {"key", root + @"\..\" + type + ": " + (sixtyFour ? "(x64)" : "") + " [[b]" + valueName + "[/b]]"},
                             {"value", value}
                         }
-                        );
+                    );
                 }
             }
 

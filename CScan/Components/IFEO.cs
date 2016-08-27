@@ -10,11 +10,11 @@ namespace CScan.Components
 
         public void Run(ref Report report, List<Dictionary<string, string>> list)
         {
-            using (var key = Registry.LocalMachine.OpenSubKey(registryPath))
+            foreach (var result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, registryPath))
             {
-                foreach (var subKeyName in key.GetSubKeyNames())
+                foreach (var subKeyName in result.key.GetSubKeyNames())
                 {
-                    using (var subKey = key.OpenSubKey(subKeyName))
+                    using (var subKey = result.key.OpenSubKey(subKeyName))
                     {
                         if (subKey.GetValue("Debugger") != null)
                         {
