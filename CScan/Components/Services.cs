@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceProcess;
 using Microsoft.Win32;
+using CScan.Whitelist;
 
 namespace CScan.Components
 {
@@ -12,11 +13,17 @@ namespace CScan.Components
 
             foreach (var service in services)
             {
+                var imagePath = GetImagePath(service.ServiceName);
+                var name = service.ServiceName;
+
+                if (ServiceWhitelist.IsWhitelisted(imagePath, name))
+                    continue;
+
                 list.Add(new Dictionary<string, string>
                 {
                     {"token", "Svc"},
-                    {"name", "[b]" + service.ServiceName + "[/b]"},
-                    {"imagePath", GetImagePath(service.ServiceName)}
+                    {"name", "[b]" + name + "[/b]"},
+                    {"imagePath", imagePath}
                 });
             }
 
