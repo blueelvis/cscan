@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Win32;
+using CScan.RegistryWrapper;
 
 namespace CScan.Components
 {
@@ -17,14 +18,14 @@ namespace CScan.Components
 
                 var lastKey = splitKeys[splitKeys.Length - 1];
 
-                using (var key = Registry.LocalMachine.OpenSubKey(registryKey))
+                foreach (RegistryResult result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, registryKey))
                 {
-                    list = IterateOverValues(list, key, lastKey, "HKLM");
+                    list = IterateOverValues(list, result.key, lastKey, "HKLM", result.view == RegistryView.Registry64);
                 }
 
-                using (var key = Registry.CurrentUser.OpenSubKey(registryKey))
+                foreach (RegistryResult result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.CurrentUser, registryKey))
                 {
-                    list = IterateOverValues(list, key, lastKey, "HKCU");
+                    list = IterateOverValues(list, result.key, lastKey, "HKCU", result.view == RegistryView.Registry64);
                 }
             }
 
@@ -41,7 +42,7 @@ namespace CScan.Components
         }
 
         protected List<Dictionary<string, string>> IterateOverValues(List<Dictionary<string, string>> list,
-            RegistryKey key, string type, string root)
+            RegistryKey key, string type, string root, bool sixtyFour)
         {
             foreach (var valueName in key.GetValueNames())
             {
@@ -53,7 +54,7 @@ namespace CScan.Components
                         new Dictionary<string, string>
                         {
                             {"token", "Run"},
-                            {"key", root + @"\..\" + type + ": [[b]" + valueName + "[/b]]"},
+                            {"key", root + @"\..\" + type + ": " + (sixtyFour ? "(x64)" : "") + " [[b]" + valueName + "[/b]]"},
                             {"value", value}
                         }
                         );
