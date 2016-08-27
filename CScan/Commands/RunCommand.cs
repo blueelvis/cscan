@@ -10,7 +10,7 @@ namespace CScan.Commands
             foreach (var line in arguments)
             {
                 var hive = line.Substring(0, 4) == "HKCU" ? RegistryHive.CurrentUser : RegistryHive.LocalMachine;
-                var value = line.Substring(4);
+                var value = line.Substring(5);
 
                 foreach (
                     var result in
