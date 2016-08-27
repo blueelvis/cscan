@@ -104,6 +104,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.Extensions" />
@@ -119,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clsid.cs" />
+    <Compile Include="Commands\Collect.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\RunCommand.cs" />
     <Compile Include="Authenticode.cs" />
