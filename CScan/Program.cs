@@ -11,6 +11,15 @@ namespace CScan
         [STAThread]
         private static void Main()
         {
+            // If the OS is <= Windows Vista.
+            OperatingSystem OS = Environment.OSVersion;
+            if (OS.Platform == PlatformID.Win32NT && OS.Version.Major <= 6)
+            {
+                MessageBox.Show("CScan is not compatiable with Windows Vista or below.", "Compatibility Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Environment.Exit(1);
+            }
+
             // If the binary is a different architecture than the system.
             if (Environment.Is64BitOperatingSystem != Environment.Is64BitProcess)
             {
