@@ -13,8 +13,8 @@ namespace CScan.Components
 
             foreach (var service in services)
             {
-                var imagePath = GetImagePath(service.ServiceName);
-                var name = service.ServiceName;
+                var imagePath = GetImagePath(service.ServiceName).Trim();
+                var name = service.ServiceName.Trim();
 
                 if (ServiceWhitelist.IsWhitelisted(imagePath, name))
                     continue;

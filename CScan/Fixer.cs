@@ -16,7 +16,8 @@ namespace CScan
         {
             // Command => Class
             {"collect", "Collect"},
-            {"run", "RunCommand"}
+            {"reset-lsp", "ResetLSP"},
+            {"run", "RunCommand"},
         };
 
         private readonly List<string> lineBuffer = new List<string>();
@@ -98,7 +99,12 @@ namespace CScan
 
         private void ProcessLine(string line)
         {
-            if (line.Substring(0, 1) == ":")
+            if (line.Substring(0, 2) == "::")
+            {
+                HandleSection(line.Substring(2).ToLower());
+                RunSection();
+            }
+            else if (line.Substring(0, 1) == ":")
             {
                 HandleSection(line.Substring(1).ToLower());
             }
