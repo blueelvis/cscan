@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -10,6 +10,8 @@ namespace CScan
 
         public static bool IsSigned(string fileName, bool strict = false)
         {
+            fileName = Path.GetFullPath(fileName);
+
             if (!File.Exists(tempPath))
             {
                 File.WriteAllBytes(tempPath, Resources.signtool);
