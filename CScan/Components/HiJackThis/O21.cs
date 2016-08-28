@@ -9,16 +9,13 @@ namespace CScan.Components.HiJackThis
         {
             var hasEntries = false;
 
-            using (
-                var key =
-                    Registry.LocalMachine.OpenSubKey(
-                        @"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
+            foreach (var result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
             {
-                var valueNames = key.GetValueNames();
+                var valueNames = result.key.GetValueNames();
 
                 foreach (var valueName in valueNames)
                 {
-                    var value = (string) key.GetValue(valueName);
+                    var value = (string) result.key.GetValue(valueName);
                     var dll = Clsid.GetFile(value);
 
                     list.Add(new Dictionary<string, string>
