@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Security.AccessControl;
+using System.Security.Principal;
 using System.Windows.Forms;
 
 namespace CScan
@@ -11,15 +15,6 @@ namespace CScan
         [STAThread]
         private static void Main()
         {
-            // If the OS is <= Windows Vista.
-            OperatingSystem OS = Environment.OSVersion;
-            if (OS.Platform == PlatformID.Win32NT && OS.Version.Major <= 6)
-            {
-                MessageBox.Show("CScan is not compatiable with Windows Vista or below.", "Compatibility Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                Environment.Exit(1);
-            }
-
             // If the binary is a different architecture than the system.
             if (Environment.Is64BitOperatingSystem != Environment.Is64BitProcess)
             {
@@ -28,6 +23,19 @@ namespace CScan
 
                 Environment.Exit(1);
             }
+
+            SafeHandle handle = Process.GetCurrentProcess().SafeHandle;
+            ProcessSecurity manager = new ProcessSecurity(handle);
+
+            IdentityReference identityReference = new SecurityIdentifier(WellKnownSidType.AuthenticatedUserSid, null);
+            int accessMask = 0x0001;
+            InheritanceFlags inheritanceFlags = InheritanceFlags.None;
+            PropagationFlags propagationFlags = PropagationFlags.None;
+            AccessControlType type = AccessControlType.Deny;
+            
+            AccessRule rule = manager.AccessRuleFactory(identityReference, accessMask, true, inheritanceFlags, propagationFlags, type);
+            manager.AddAccessRule((ProcessAccessRule) rule);
+            manager.SaveChanges(handle);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
