@@ -43,7 +43,12 @@ namespace CScan.Components.Browser
 
         private string GetFriendlyName(string directory)
         {
-            var version = Directory.GetDirectories(directory)[0];
+            var directories = Directory.GetDirectories(directory);
+
+            if (directories.Length == 0)
+                return null;
+
+            var version = directories[0];
 
             var manifestObj = DecodeManifest(version);
 
@@ -52,7 +57,12 @@ namespace CScan.Components.Browser
 
         private string GetVersion(string directory)
         {
-            var version = Directory.GetDirectories(directory)[0];
+            var directories = Directory.GetDirectories(directory);
+
+            if (directories.Length == 0)
+                return null;
+
+            var version = directories[0];
 
             var manifestObj = DecodeManifest(version);
 
@@ -70,8 +80,8 @@ namespace CScan.Components.Browser
 
         private struct Manifest
         {
-            public readonly string name;
-            public readonly string version;
+            public string name;
+            public string version;
 
             public Manifest(string name, string version)
             {
