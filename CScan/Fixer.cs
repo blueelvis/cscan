@@ -61,7 +61,7 @@ namespace CScan
                 ProcessLine(cleanLine);
             }
 
-            if (currentSection != null && lineBuffer.Count > 0)
+            if (currentSection != null)
                 RunSection();
 
             File.WriteAllText(fixLogPath, ToString().Trim());
@@ -99,12 +99,7 @@ namespace CScan
 
         private void ProcessLine(string line)
         {
-            if (line.Substring(0, 2) == "::")
-            {
-                HandleSection(line.Substring(2).ToLower());
-                RunSection();
-            }
-            else if (line.Substring(0, 1) == ":")
+            if (line.Substring(0, 1) == ":")
             {
                 HandleSection(line.Substring(1).ToLower());
             }
