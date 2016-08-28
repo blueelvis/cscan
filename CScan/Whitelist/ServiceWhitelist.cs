@@ -10,6 +10,7 @@ namespace CScan.Whitelist
     {
         private static Dictionary<string, string> whitelist = new Dictionary<string, string>()
         {
+            {@"C:\WINDOWS\System32\alg.exe", "ALG"},
             {@"C:\WINDOWS\system32\svchost.exe -k LocalServiceNetworkRestricted", "AJRouter"},
         };
 

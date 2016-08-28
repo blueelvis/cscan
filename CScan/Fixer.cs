@@ -16,6 +16,7 @@ namespace CScan
         {
             // Command => Class
             {"collect", "Collect"},
+            {"files", "Files"},
             {"reset-lsp", "ResetLSP"},
             {"run", "RunCommand"},
         };
