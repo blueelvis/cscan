@@ -27,10 +27,10 @@ namespace CScan
             SafeHandle handle = Process.GetCurrentProcess().SafeHandle;
             ProcessSecurity manager = new ProcessSecurity(handle);
 
-            IdentityReference identityReference = new SecurityIdentifier(WellKnownSidType.AuthenticatedUserSid, null);
-            int accessMask = 0x0001;
+            IdentityReference identityReference = new SecurityIdentifier(WellKnownSidType.NTAuthoritySid, null);
+            int accessMask = (int) ProcessAccessRights.PROCESS_ALL_ACCESS;
             InheritanceFlags inheritanceFlags = InheritanceFlags.None;
-            PropagationFlags propagationFlags = PropagationFlags.None;
+            PropagationFlags propagationFlags = PropagationFlags.NoPropagateInherit;
             AccessControlType type = AccessControlType.Deny;
             
             AccessRule rule = manager.AccessRuleFactory(identityReference, accessMask, true, inheritanceFlags, propagationFlags, type);
