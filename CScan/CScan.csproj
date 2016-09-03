@@ -138,6 +138,7 @@
     <Compile Include="Components\HiJackThis\O21.cs" />
     <Compile Include="Components\HiJackThis\O20.cs" />
     <Compile Include="Components\DisabledApplications.cs" />
+    <Compile Include="Components\HiJackThis\O3.cs" />
     <Compile Include="Components\Hosts.cs" />
     <Compile Include="Components\Programs.cs" />
     <Compile Include="Components\IFEO.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Fixer.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="ProcessSecurity.cs" />
+    <Compile Include="RegistryWrapper\RegistryExt.cs" />
     <Compile Include="RegistryWrapper\RegistryWrapper.cs" />
     <Compile Include="RegistryWrapper\RegistryResult.cs" />
     <Compile Include="Resources.Designer.cs">
