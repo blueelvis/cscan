@@ -12,7 +12,7 @@ namespace CScan.Commands
         public List<Dictionary<string, string>> Run(List<string> arguments, List<Dictionary<string, string>> list)
         {
             var tempFile = Path.GetTempFileName();
-            list.Insert(0, "Windows Registry Editor Version 5.00");
+            arguments.Insert(0, "Windows Registry Editor Version 5.00");
 
             File.WriteAllLines(tempFile, arguments.ToArray());
 
