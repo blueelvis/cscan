@@ -1,7 +1,7 @@
-﻿using CScan.Whitelist;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Management;
+using CScan.Whitelist;
 
 namespace CScan.Components
 {

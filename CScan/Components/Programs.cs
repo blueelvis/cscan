@@ -15,7 +15,7 @@ namespace CScan.Components
                 {
                     using (var subKey = result.key.OpenSubKey(subKeyName))
                     {
-                        var displayName = (string)subKey.GetValue("DisplayName");
+                        var displayName = (string) subKey.GetValue("DisplayName");
                         var hidden = subKey.GetValue("SystemComponent") != null;
 
                         if (displayName != null)

@@ -1,15 +1,16 @@
-﻿using Microsoft.Win32;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.Win32;
 
 namespace CScan.RegistryWrapper
 {
-    class RegistryWrapper
+    internal class RegistryWrapper
     {
         public static IEnumerable<RegistryResult> QuerySubKey(RegistryHive baseKey, string subKey)
         {
             var i386 = OpenSubKey(baseKey, subKey, RegistryView.Registry32);
 
-            if (i386 != null) {
+            if (i386 != null)
+            {
                 yield return new RegistryResult(i386, RegistryView.Registry32);
             }
 
@@ -23,7 +24,7 @@ namespace CScan.RegistryWrapper
 
         protected static RegistryKey OpenSubKey(RegistryHive hive, string subKey, RegistryView view)
         {
-            RegistryKey baseKey = RegistryKey.OpenBaseKey(hive, view);
+            var baseKey = RegistryKey.OpenBaseKey(hive, view);
             return baseKey.OpenSubKey(subKey);
         }
     }

@@ -80,8 +80,8 @@ namespace CScan.Components.Browser
 
         private struct Manifest
         {
-            public string name;
-            public string version;
+            public readonly string name;
+            public readonly string version;
 
             public Manifest(string name, string version)
             {

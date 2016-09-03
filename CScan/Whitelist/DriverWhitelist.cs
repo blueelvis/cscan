@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CScan.Whitelist
 {
-    class DriverWhitelist
+    internal class DriverWhitelist
     {
-        private static Dictionary<string, string> whitelist = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> whitelist = new Dictionary<string, string>
         {
             {@"\??\C:\Program Files\NVIDIA Corporation\NvStreamSrv\NvStreamKms.sys", "NvStreamKms"},
             {@"\??\C:\WINDOWS\system32\drivers\cbfs6.sys", "cbfs6"},
@@ -27,7 +23,7 @@ namespace CScan.Whitelist
             {@"C:\WINDOWS\system32\drivers\disk.sys", "Disk Driver"},
             {@"C:\WINDOWS\system32\DRIVERS\drmkaud.sys", "Microsoft Trusted Audio Drivers"},
             {@"C:\WINDOWS\system32\DRIVERS\fvevol.sys", "BitLocker Drive Encryption Filter Driver"},
-            {@"C:\WINDOWS\system32\drivers\xboxgip.sys", "Xbox Game Input Protocol Driver"},
+            {@"C:\WINDOWS\system32\drivers\xboxgip.sys", "Xbox Game Input Protocol Driver"}
         };
 
         public static bool IsWhitelisted(string key, string value, bool keyIsSignedFile = false)

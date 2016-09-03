@@ -9,7 +9,10 @@ namespace CScan.Components.HiJackThis
         {
             var hasEntries = false;
 
-            foreach (var result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, @"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
+            foreach (
+                var result in
+                    RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine,
+                        @"Software\Microsoft\Windows\CurrentVersion\ShellServiceObjectDelayLoad"))
             {
                 var valueNames = result.key.GetValueNames();
 

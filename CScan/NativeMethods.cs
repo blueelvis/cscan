@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Management;
 using System.Runtime.InteropServices;
 
 namespace CScan
@@ -11,9 +9,14 @@ namespace CScan
 
     internal static class NativeMethods
     {
+        private const uint TOKEN_QUERY = 0x0008;
+        private const uint TOKEN_ADJUST_PRIVILEGES = 0x0020;
+        private const uint SE_PRIVILEGE_ENABLED = 0x00000002;
+        private const string SE_SHUTDOWN_NAME = "SeShutdownPrivilege";
+
         public static void Reboot()
         {
-            IntPtr tokenHandle = IntPtr.Zero;
+            var tokenHandle = IntPtr.Zero;
 
             try
             {
@@ -27,7 +30,7 @@ namespace CScan
                 }
 
                 // lookup the shutdown privilege
-                TOKEN_PRIVILEGES tokenPrivs = new TOKEN_PRIVILEGES();
+                var tokenPrivs = new TOKEN_PRIVILEGES();
                 tokenPrivs.PrivilegeCount = 1;
                 tokenPrivs.Privileges = new LUID_AND_ATTRIBUTES[1];
                 tokenPrivs.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
@@ -54,9 +57,9 @@ namespace CScan
 
                 // reboot
                 if (!ExitWindowsEx(ExitWindows.Reboot,
-                        ShutdownReason.MajorApplication |
-                ShutdownReason.MinorInstallation |
-                ShutdownReason.FlagPlanned))
+                    ShutdownReason.MajorApplication |
+                    ShutdownReason.MinorInstallation |
+                    ShutdownReason.FlagPlanned))
                 {
                     throw new Win32Exception(Marshal.GetLastWin32Error(),
                         "Failed to reboot system");
@@ -72,6 +75,36 @@ namespace CScan
             }
         }
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool ExitWindowsEx(ExitWindows uFlags,
+            ShutdownReason dwReason);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool OpenProcessToken(IntPtr ProcessHandle,
+            uint DesiredAccess,
+            out IntPtr TokenHandle);
+
+        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool LookupPrivilegeValue(string lpSystemName,
+            string lpName,
+            out LUID lpLuid);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool CloseHandle(IntPtr hObject);
+
+        [DllImport("advapi32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool AdjustTokenPrivileges(IntPtr TokenHandle,
+            [MarshalAs(UnmanagedType.Bool)] bool DisableAllPrivileges,
+            ref TOKEN_PRIVILEGES NewState,
+            uint Zero,
+            IntPtr Null1,
+            IntPtr Null2);
+
         // everything from here on is from pinvoke.net
 
         [Flags]
@@ -85,7 +118,7 @@ namespace CScan
             RestartApps = 0x40,
             // plus AT MOST ONE of the following two:
             Force = 0x04,
-            ForceIfHung = 0x10,
+            ForceIfHung = 0x10
         }
 
         [Flags]
@@ -134,57 +167,21 @@ namespace CScan
         [StructLayout(LayoutKind.Sequential)]
         private struct LUID
         {
-            public uint LowPart;
-            public int HighPart;
+            public readonly uint LowPart;
+            public readonly int HighPart;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         private struct LUID_AND_ATTRIBUTES
         {
             public LUID Luid;
-            public UInt32 Attributes;
+            public uint Attributes;
         }
 
         private struct TOKEN_PRIVILEGES
         {
-            public UInt32 PrivilegeCount;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
-            public LUID_AND_ATTRIBUTES[] Privileges;
+            public uint PrivilegeCount;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)] public LUID_AND_ATTRIBUTES[] Privileges;
         }
-
-        private const UInt32 TOKEN_QUERY = 0x0008;
-        private const UInt32 TOKEN_ADJUST_PRIVILEGES = 0x0020;
-        private const UInt32 SE_PRIVILEGE_ENABLED = 0x00000002;
-        private const string SE_SHUTDOWN_NAME = "SeShutdownPrivilege";
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool ExitWindowsEx(ExitWindows uFlags,
-            ShutdownReason dwReason);
-
-        [DllImport("advapi32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool OpenProcessToken(IntPtr ProcessHandle,
-            UInt32 DesiredAccess,
-            out IntPtr TokenHandle);
-
-        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool LookupPrivilegeValue(string lpSystemName,
-            string lpName,
-            out LUID lpLuid);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool CloseHandle(IntPtr hObject);
-
-        [DllImport("advapi32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool AdjustTokenPrivileges(IntPtr TokenHandle,
-            [MarshalAs(UnmanagedType.Bool)]bool DisableAllPrivileges,
-            ref TOKEN_PRIVILEGES NewState,
-            UInt32 Zero,
-            IntPtr Null1,
-            IntPtr Null2);
     }
 }

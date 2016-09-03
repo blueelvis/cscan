@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Win32;
-using CScan.RegistryWrapper;
 
 namespace CScan.Components
 {
@@ -18,12 +17,14 @@ namespace CScan.Components
 
                 var lastKey = splitKeys[splitKeys.Length - 1];
 
-                foreach (RegistryResult result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, registryKey))
+                foreach (
+                    var result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.LocalMachine, registryKey))
                 {
                     list = IterateOverValues(list, result.key, lastKey, "HKLM", result.view == RegistryView.Registry64);
                 }
 
-                foreach (RegistryResult result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.CurrentUser, registryKey))
+                foreach (
+                    var result in RegistryWrapper.RegistryWrapper.QuerySubKey(RegistryHive.CurrentUser, registryKey))
                 {
                     list = IterateOverValues(list, result.key, lastKey, "HKCU", result.view == RegistryView.Registry64);
                 }
@@ -54,10 +55,14 @@ namespace CScan.Components
                         new Dictionary<string, string>
                         {
                             {"token", "Run"},
-                            {"key", root + @"\..\" + type + ": " + (sixtyFour ? "(x64)" : "") + " [[b]" + valueName + "[/b]]"},
+                            {
+                                "key",
+                                root + @"\..\" + type + ": " + (sixtyFour ? "(x64)" : "") + " [[b]" + valueName +
+                                "[/b]]"
+                            },
                             {"value", value}
                         }
-                    );
+                        );
                 }
             }
 

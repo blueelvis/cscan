@@ -19,27 +19,27 @@ namespace CScan
                 return (string) key?.GetValue(null);
             }
         }
-        public static string GetName(string clsid,RegistryView view)
+
+        public static string GetName(string clsid, RegistryView view)
         {
             using (var basekey = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, view))
             {
-                using(var ClsidKey = basekey.OpenSubKey(@"CLSID\" + clsid))
+                using (var ClsidKey = basekey.OpenSubKey(@"CLSID\" + clsid))
                 {
-                    return (string)ClsidKey?.GetValue(null);
+                    return (string) ClsidKey?.GetValue(null);
                 }
             }
-            
         }
+
         public static string GetFile(string clsid, RegistryView view)
         {
             using (var basekey = RegistryKey.OpenBaseKey(RegistryHive.ClassesRoot, view))
             {
-                using (var ClsidKey = basekey.OpenSubKey(@"CLSID\"+clsid + @"\InprocServer32"))
+                using (var ClsidKey = basekey.OpenSubKey(@"CLSID\" + clsid + @"\InprocServer32"))
                 {
-                    return (string)ClsidKey?.GetValue(null);
+                    return (string) ClsidKey?.GetValue(null);
                 }
             }
-
         }
     }
 }

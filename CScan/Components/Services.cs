@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceProcess;
-using Microsoft.Win32;
 using CScan.Whitelist;
+using Microsoft.Win32;
 
 namespace CScan.Components
 {
