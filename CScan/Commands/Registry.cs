@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Text.RegularExpressions;
 
 namespace CScan.Commands
@@ -21,7 +19,7 @@ namespace CScan.Commands
 
             File.Delete(tempFile);
 
-            list.Add(new Dictionary<string, string>()
+            list.Add(new Dictionary<string, string>
             {
                 {"token", "Registry"},
                 {"path", "Merged successfully"}

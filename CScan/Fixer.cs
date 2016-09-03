@@ -19,7 +19,7 @@ namespace CScan
             {"files", "Files"},
             {"registry", "Registry"},
             {"reset-lsp", "ResetLSP"},
-            {"run", "RunCommand"},
+            {"run", "RunCommand"}
         };
 
         private readonly List<string> lineBuffer = new List<string>();
@@ -31,7 +31,7 @@ namespace CScan
         public string fixLogPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                    @"\Desktop\CScan Fix.txt";
 
-        private bool rebootRequired = false;
+        private bool rebootRequired;
 
         private RichTextBox status;
 
@@ -72,7 +72,9 @@ namespace CScan
 
             if (rebootRequired)
             {
-                MessageBox.Show("CScan must reboot in order to perform certain operations during the boot process. Press OK to reboot your computer.", "Reboot Required", MessageBoxButtons.OK);
+                MessageBox.Show(
+                    "CScan must reboot in order to perform certain operations during the boot process. Press OK to reboot your computer.",
+                    "Reboot Required", MessageBoxButtons.OK);
                 NativeMethods.Reboot();
             }
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Win32;
 
 namespace CScan.RegistryWrapper
@@ -7,11 +8,14 @@ namespace CScan.RegistryWrapper
     {
         public static IEnumerable<RegistryResult> QuerySubKey(RegistryHive baseKey, string subKey)
         {
-            var i386 = OpenSubKey(baseKey, subKey, RegistryView.Registry32);
-
-            if (i386 != null)
+            if (baseKey != RegistryHive.LocalMachine)
             {
-                yield return new RegistryResult(i386, RegistryView.Registry32);
+                var i386 = OpenSubKey(baseKey, subKey, RegistryView.Registry32);
+
+                if (i386 != null)
+                {
+                    yield return new RegistryResult(i386, RegistryView.Registry32);
+                }
             }
 
             var amd64 = OpenSubKey(baseKey, subKey, RegistryView.Registry64);
