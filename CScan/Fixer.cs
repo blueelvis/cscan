@@ -30,6 +30,8 @@ namespace CScan
         public string fixLogPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) +
                                    @"\Desktop\CScan Fix.txt";
 
+        private bool rebootRequired = false;
+
         private RichTextBox status;
 
         public string Fix(ref RichTextBox richTextBox, string fileName = null)
@@ -67,6 +69,12 @@ namespace CScan
 
             File.WriteAllText(fixLogPath, ToString().Trim());
 
+            if (rebootRequired)
+            {
+                MessageBox.Show("CScan must reboot in order to perform certain operations during the boot process. Press OK to reboot your computer.", "Reboot Required", MessageBoxButtons.OK);
+                NativeMethods.Reboot();
+            }
+
             return fixLogPath;
         }
 
@@ -85,6 +93,12 @@ namespace CScan
                         if (component.Key == "token")
                         {
                             s = s + component.Value + ": ";
+                            continue;
+                        }
+
+                        if (component.Key == "reboot_required" && component.Value == "true")
+                        {
+                            rebootRequired = true;
                             continue;
                         }
 

@@ -10,7 +10,6 @@ namespace CScan
     internal class Report
     {
         protected List<Dictionary<string, string>> lines = new List<Dictionary<string, string>>();
-
         protected string publicKey;
 
         public void Add(List<Dictionary<string, string>> newLines)

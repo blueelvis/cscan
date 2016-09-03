@@ -146,6 +146,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="FileInspector.cs" />
     <Compile Include="Fixer.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="ProcessSecurity.cs" />
     <Compile Include="RegistryWrapper\RegistryWrapper.cs" />
     <Compile Include="RegistryWrapper\RegistryResult.cs" />
